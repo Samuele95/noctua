@@ -200,10 +200,13 @@ The exports carry no new claims: they are the mark, or they repeat sentences alr
 spacing and the do/don't. Its one factual claim about the framework — that *Athene noctua* has no
 ear tufts — is ornithology, not package content, and is marked as the brand's own reasoning below.
 
-**Still relative, still waiting on the origin (C7):** `og:image`, `twitter:image`, the `hreflang`
-alternates, the absent `<link rel="canonical">`, and `sitemap.xml`, which is not written at all
-because a guessed origin would list pages that do not exist. `tools/build_sitemap.py` takes the
-origin and stamps `robots.txt` in the same run.
+**Resolved at C7.** The origin is `https://samuele95.github.io/noctua/`, recorded once in
+`content/site.json`. From it, `tools/stamp_origin.py` writes the absolute `rel=canonical`,
+`hreflang` alternates, `og:url`, `og:image` and `twitter:image` on all ten pages, and
+`tools/build_sitemap.py` writes `sitemap.xml` and stamps the `Sitemap:` line into `robots.txt`.
+Moving the site to another host is one edit to that file plus those two commands.
+`tools/check_links.py` now verifies that every absolute URL on every page sits on that origin
+and, where it names a file, that the file exists.
 
 ## Brand — not traced to the package, and said so
 

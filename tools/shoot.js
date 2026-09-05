@@ -17,7 +17,8 @@ const WIDTHS = [
 ];
 const PAGES = (process.env.PAGES || "index,docs/data-lens,docs/document-project").split(",");
 const LANGS = (process.env.LANGS || "en,it").split(",");
-const ALLOWED_HOSTS = [];  // fonts are self-hosted: nothing external may be requested
+const SELF = new URL(BASE).hostname;   // the host under test, local or live
+const ALLOWED_HOSTS = [];             // fonts are self-hosted: nothing else may be requested
 
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
@@ -48,7 +49,7 @@ const ALLOWED_HOSTS = [];  // fonts are self-hosted: nothing external may be req
         });
         page.on("request", (r) => {
           const u = new URL(r.url());
-          if (u.hostname !== "127.0.0.1" && u.protocol !== "data:") external.add(u.hostname);
+          if (u.hostname !== SELF && u.protocol !== "data:") external.add(u.hostname);
         });
 
         await page.goto(`${BASE}/${name}.html?lang=${lang}`, { waitUntil: "networkidle" });
