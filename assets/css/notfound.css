@@ -1,0 +1,10 @@
+/* The 404. Served by GitHub Pages for any unmatched path, so every reference in it is
+   absolute from the site root — a relative one would break at /noctua/docs/whatever. */
+.notfound {
+  min-height: calc(100vh - 66px);
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  gap: var(--s-5); padding-block: var(--s-8);
+}
+.notfound-mark svg { width: 108px; height: 108px; color: var(--text); opacity: .9; }
+.notfound h1 { font-size: clamp(2rem, 5.4vw, var(--t-3xl)); max-width: 16ch; }
+.notfound .eyebrow { font-size: var(--t-sm); }

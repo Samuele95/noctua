@@ -9,13 +9,13 @@ const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
 const OUT = path.join(ROOT, "screenshots");
-const BASE = process.env.BASE || "http://127.0.0.1:8765";
+const BASE = process.env.BASE || "http://127.0.0.1:8765/noctua";
 const WIDTHS = [
   { w: 1440, h: 900, tag: "1440" },
   { w: 768, h: 1024, tag: "768" },
   { w: 360, h: 800, tag: "360" },
 ];
-const PAGES = (process.env.PAGES || "index,docs/data-lens,docs/document-project").split(",");
+const PAGES = (process.env.PAGES || "index,docs/index,docs/data-lens,404").split(",");
 const LANGS = (process.env.LANGS || "en,it").split(",");
 const SELF = new URL(BASE).hostname;   // the host under test, local or live
 const ALLOWED_HOSTS = [];             // fonts are self-hosted: nothing else may be requested

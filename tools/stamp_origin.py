@@ -17,10 +17,12 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = json.loads((ROOT / "content" / "site.json").read_text())
 ORIGIN = SITE["origin"].rstrip("/") + "/"
+BASE = urlsplit(ORIGIN).path or "/"
 
 
 def stamp_index() -> int:
@@ -50,8 +52,10 @@ def stamp_index() -> int:
 def main() -> int:
     changed = stamp_index()
     subprocess.run([sys.executable, str(ROOT / "tools" / "build_docs.py")], check=True)
-    print(f"origin stamped: {ORIGIN}  (index.html {'rewritten' if changed else 'already current'}; "
-          "docs pages regenerated)")
+    subprocess.run([sys.executable, str(ROOT / "tools" / "build_404.py")], check=True)
+    print(f"origin stamped: {ORIGIN}  (base path {BASE}; index.html "
+          f"{'rewritten' if changed else 'already current'}; "
+          "docs pages and 404.html regenerated)")
     return 0
 
 

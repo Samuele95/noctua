@@ -14,7 +14,7 @@ const path = require("path");
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 },
                                            deviceScaleFactor: 2 });
     const page = await ctx.newPage();
-    await page.goto(`http://127.0.0.1:8765/${name}.html?lang=${lang}`, { waitUntil: "networkidle" });
+    await page.goto(`${process.env.BASE || "http://127.0.0.1:8765/noctua"}/${name}.html?lang=${lang}`, { waitUntil: "networkidle" });
 
     const stages = await page.locator(".stage").count();
     stages === 10 ? ok(`${name} ${lang}: 10 stage buttons`) : fail(`${name} ${lang}: ${stages} stage buttons, want 10`);

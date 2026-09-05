@@ -43,6 +43,7 @@
     <nav class="nav" aria-label="Sections">
       <a href="#chain" data-i18n="nav.chain">the chain</a>
       <a href="#stages" data-i18n="nav.stages">the stages</a>
+      <a href="docs/index.html" data-i18n="nav.docs">the pages</a>
       <a href="#verify" data-i18n="nav.verify">how it verifies</a>
       <a href="#start" data-i18n="nav.start">get started</a>
     </nav>
@@ -124,85 +125,85 @@
       <div class="skill-grid">
         <article class="skill">
           <div class="skill-top">
-            <h3 translate="no">spec-analysis</h3>
+            <h3><a href="docs/spec-analysis.html" translate="no">spec-analysis</a></h3>
             <code class="cmd">/spec-analysis</code>
           </div>
           <p lang="en">Analyze an existing software project, a data project or a database, and explain it back as a read-only HTML report: components and responsibilities, behaviours and business rules, decision logic, the data model and the flows, as connected prose — reading the code but never modifying it.</p>
           <p class="skill-io" lang="en"><span>codebase / data code / schema</span><span class="io-out"><span class="arrow">&rarr;</span>spec-analysis.html</span></p>
-          <p class="skill-src"><a href="docs/spec-analysis.html"><span data-i18n="skill.source">source</span>: <span lang="en">spec-analysis</span></a></p>
+          <p class="skill-src"><a href="docs/spec-analysis.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
           <div class="skill-top">
-            <h3 translate="no">domain-forge</h3>
+            <h3><a href="docs/domain-forge.html" translate="no">domain-forge</a></h3>
             <code class="cmd">/domain-forge</code>
           </div>
           <p lang="en">Turn a textual project idea into a visual, language-agnostic domain model in one self-contained HTML file: entities and relationships extracted from prose, made compatible with ontology T-box/A-box, DMN decision tables and Prolog/Horn rules. It owns the model platform — the contract, the engines, the validator and the layer tools.</p>
           <p class="skill-io" lang="en"><span>prose, or any model to refine</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.domain.html</span></p>
-          <p class="skill-src"><a href="docs/domain-forge.html"><span data-i18n="skill.source">source</span>: <span lang="en">domain-forge</span></a></p>
+          <p class="skill-src"><a href="docs/domain-forge.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
           <div class="skill-top">
-            <h3 translate="no">dataset-forge</h3>
+            <h3><a href="docs/dataset-forge.html" translate="no">dataset-forge</a></h3>
             <code class="cmd">/dataset-forge</code>
           </div>
           <p lang="en">Geometric, neurosymbolic analysis of a tabular dataset: its dimensions, its basis — the minimal set of mutually non-derivable features, every other column expressed as a derivation rule — the dependencies among basis members, and the feature/label partitions they imply, modelled so the engines verify what the model proposes.</p>
           <p class="skill-io" lang="en"><span>dataset</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.domain.html + geometry</span></p>
-          <p class="skill-src"><a href="docs/dataset-forge.html"><span data-i18n="skill.source">source</span>: <span lang="en">dataset-forge</span></a></p>
+          <p class="skill-src"><a href="docs/dataset-forge.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
           <div class="skill-top">
-            <h3 translate="no">data-lens</h3>
+            <h3><a href="docs/data-lens.html" translate="no">data-lens</a></h3>
             <code class="cmd">/data-lens</code>
           </div>
           <p lang="en">Traditional, best-practice analysis on top of that geometry: quality and missingness mechanisms, distributions and outliers, inference with assumption checks and effect sizes, importance and leakage probes, time series, spatial structure, drift. An observation is a finding only if it changes a downstream decision.</p>
           <p class="skill-io" lang="en"><span>dataset model (+ dataset)</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.analysis.html + analysis</span></p>
-          <p class="skill-src"><a href="docs/data-lens.html"><span data-i18n="skill.source">source</span>: <span lang="en">data-lens</span></a></p>
+          <p class="skill-src"><a href="docs/data-lens.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
           <div class="skill-top">
-            <h3 translate="no">dataset-shaper</h3>
+            <h3><a href="docs/dataset-shaper.html" translate="no">dataset-shaper</a></h3>
             <code class="cmd">/dataset-shaper</code>
           </div>
           <p lang="en">Materialize decisions the analysis already took: compile a declarative, provenance-traced recipe of transformations, execute it deterministically, verify it, and emit the shaped dataset, a manifest, a lineage, a standalone reproduction script and an additive shape layer.</p>
           <p class="skill-io" lang="en"><span>model with geometry (+ analysis)</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.shaped.html + shaped/</span></p>
-          <p class="skill-src"><a href="docs/dataset-shaper.html"><span data-i18n="skill.source">source</span>: <span lang="en">dataset-shaper</span></a></p>
+          <p class="skill-src"><a href="docs/dataset-shaper.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
           <div class="skill-top">
-            <h3 translate="no">inferred-questions</h3>
+            <h3><a href="docs/inferred-questions.html" translate="no">inferred-questions</a></h3>
             <code class="cmd">/inferred-questions</code>
           </div>
           <p lang="en">Surface the latent modelling questions in a model — gaps in DMN coverage, edges of OWL restrictions, SWRL antecedents that never bind, multi-typing under disjointness, rationale that names an external system without defining its failure mode. The input file is never modified.</p>
           <p class="skill-io" lang="en"><span>any model</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.questions.html</span></p>
-          <p class="skill-src"><a href="docs/inferred-questions.html"><span data-i18n="skill.source">source</span>: <span lang="en">inferred-questions</span></a></p>
+          <p class="skill-src"><a href="docs/inferred-questions.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
           <div class="skill-top">
-            <h3 translate="no">model-chat</h3>
+            <h3><a href="docs/model-chat.html" translate="no">model-chat</a></h3>
             <code class="cmd">/model-chat</code>
           </div>
           <p lang="en">Hold an engine-grounded conversation with a model. Every answer is produced by running the model's own engines — SPARQL, the RDFS/SWRL reasoner, Prolog, DMN — never by LLM speculation; when no engine can ground a question, the skill refuses and names the gap.</p>
           <p class="skill-io" lang="en"><span>any model</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.chat.html</span></p>
-          <p class="skill-src"><a href="docs/model-chat.html"><span data-i18n="skill.source">source</span>: <span lang="en">model-chat</span></a></p>
+          <p class="skill-src"><a href="docs/model-chat.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
           <div class="skill-top">
-            <h3 translate="no">blueprint</h3>
+            <h3><a href="docs/blueprint.html" translate="no">blueprint</a></h3>
             <code class="cmd">/blueprint</code>
           </div>
           <p lang="en">First-architecture proposal for a greenfield project: ingest a spec-analysis HTML or a model, derive a proposed architectural style and world model plus ranked design findings, every claim traced to the spec or stamped as a designer's choice. With a dataset model it proposes the pipeline the geometry, analysis and recipe imply.</p>
           <p class="skill-io" lang="en"><span>prose spec or model</span><span class="io-out"><span class="arrow">&rarr;</span>blueprint-runs/&lt;ts&gt;/</span></p>
-          <p class="skill-src"><a href="docs/blueprint.html"><span data-i18n="skill.source">source</span>: <span lang="en">blueprint</span></a></p>
+          <p class="skill-src"><a href="docs/blueprint.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
           <div class="skill-top">
-            <h3 translate="no">document-project</h3>
+            <h3><a href="docs/document-project.html" translate="no">document-project</a></h3>
             <code class="cmd">/document-project</code>
           <span class="ext" data-i18n="skill.external">external</span>
           </div>
           <p lang="en">Not part of this package, and described here only by its row in the chain map: it is the last stage of every lane, it consumes everything above it, it produces LaTeX and a PDF chapter by chapter, and the check the orchestrator runs on it is that the PDF compiles.</p>
           <p class="skill-io" lang="en"><span>everything above</span><span class="io-out"><span class="arrow">&rarr;</span>LaTeX / PDF</span></p>
-          <p class="skill-src"><a href="docs/document-project.html"><span data-i18n="skill.source">source</span>: <span lang="en">document-project</span></a></p>
+          <p class="skill-src"><a href="docs/document-project.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
       </div>
     </div>
@@ -357,6 +358,7 @@
       <div>
         <ul class="foot-links">
           <li><a href="noctua-v3_1.zip" download data-i18n="foot.download">Download the package (v3, 897&nbsp;KB)</a></li>
+          <li><a href="docs/index.html" data-i18n="e404.pages">The nine stage pages</a></li>
           <li><a href="noctua-package/CHANGES-v3.md" data-i18n="foot.changes">What v3 changed, and what it verified</a></li>
           <li><a href="noctua-package/noctua/references/chain-map.md" data-i18n="foot.chainmap">The chain map this page renders</a></li>
         </ul>

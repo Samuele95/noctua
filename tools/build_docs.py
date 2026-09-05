@@ -146,11 +146,11 @@ def card(stage: str, command: str, sentence: str, slug: str, external: bool) -> 
     pill = '\n            <span class="ext" data-i18n="skill.external">external</span>' if external else ""
     return f"""        <article class="skill">
           <div class="skill-top">
-            <h3 translate="no">{esc(slug)}</h3>
+            <h3><a href="docs/{slug}.html" translate="no">{esc(slug)}</a></h3>
             <code class="cmd">{esc(command)}</code>{pill}
           </div>
           <p lang="en">{esc(sentence)}</p>
-          <p class="skill-src"><a href="docs/{slug}.html"><span data-i18n="skill.source">source</span>: <span lang="en">{esc(stage)}</span></a></p>
+          <p class="skill-src"><a href="docs/{slug}.html" data-i18n="skill.readPage">read the page</a></p>
         </article>"""
 
 
@@ -241,6 +241,7 @@ def page(slug: str, command: str, desc: str, source_href: str, source_label: str
     <nav class="nav" aria-label="Sections">
       <a href="../index.html#chain" data-i18n="nav.chain">the chain</a>
       <a href="../index.html#stages" data-i18n="nav.stages">the stages</a>
+      <a href="index.html" data-i18n="nav.docs">the pages</a>
       <a href="../index.html#verify" data-i18n="nav.verify">how it verifies</a>
       <a href="../index.html#start" data-i18n="nav.start">get started</a>
     </nav>
@@ -256,7 +257,7 @@ def page(slug: str, command: str, desc: str, source_href: str, source_label: str
     <nav class="crumbs" aria-label="Breadcrumb">
       <a href="../index.html" data-i18n="docs.home">Noctua</a>
       <span aria-hidden="true">/</span>
-      <a href="../index.html#stages" data-i18n="docs.stages">the stages</a>
+      <a href="index.html" data-i18n="docs.stages">the stages</a>
       <span aria-hidden="true">/</span>
       <span aria-current="page" translate="no">{esc(slug)}</span>
     </nav>
@@ -339,6 +340,113 @@ def page(slug: str, command: str, desc: str, source_href: str, source_label: str
     return "".join(parts)
 
 
+def index_card(slug: str, command: str, sentence: str, external: bool) -> str:
+    pill = '\n            <span class="ext" data-i18n="skill.external">external</span>' if external else ""
+    lanes = "".join(
+        f'<code data-i18n="lane.{lid}">{esc(LANES[lid]["label"] if lid in LANES else lid)}</code>'
+        for lid in lanes_of(slug))
+    return f"""        <article class="skill">
+          <div class="skill-top">
+            <h3><a href="{slug}.html" translate="no">{esc(slug)}</a></h3>
+            <code class="cmd">{esc(command)}</code>{pill}
+          </div>
+          <p lang="en">{quoted(sentence)}</p>
+          <p class="skill-io"><span class="lane-chips">{lanes}</span></p>
+        </article>"""
+
+
+def index_page() -> str:
+    cards = [index_card(slug, cmd, opening(description(slug)), False)
+             for slug, _stage, cmd in PACKAGED]
+    cards.append(index_card(EXTERNAL["slug"], EXTERNAL["command"], EXTERNAL["sentence"], True))
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="docs.indexTitle">The nine stage pages — Noctua</title>
+<meta name="description" data-i18n-attr="content:docs.metaIndexDescription" content="One page per stage of the Noctua chain: the skill's own description, its chain-map row, its lanes and its source file.">
+<meta property="og:type" content="website">
+<meta property="og:title" data-i18n-attr="content:docs.indexTitle" content="The nine stage pages — Noctua">
+<meta property="og:description" data-i18n-attr="content:docs.metaIndexDescription" content="One page per stage of the Noctua chain.">
+<link rel="canonical" href="{ORIGIN}docs/">
+<meta property="og:url" content="{ORIGIN}docs/">
+<meta property="og:image" content="{ORIGIN or '../'}brand/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{ORIGIN or '../'}brand/og-image.png">
+<link rel="alternate" hreflang="en" href="{ORIGIN}docs/?lang=en">
+<link rel="alternate" hreflang="it" href="{ORIGIN}docs/?lang=it">
+<link rel="alternate" hreflang="x-default" href="{ORIGIN}docs/">
+<link rel="icon" href="../brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../brand/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../brand/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/space-grotesk-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/chain.css">
+<link rel="stylesheet" href="../assets/css/landing.css">
+<link rel="stylesheet" href="../assets/css/docs.css">
+<script src="../assets/js/i18n-data.js"></script>
+<script src="../assets/js/i18n.js" defer></script>
+<script src="../assets/js/theme.js"></script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="a11y.skip">Skip to content</a>
+
+<header class="site-head">
+  <div class="shell">
+    <a class="brand" href="../index.html" translate="no">{MARK}<b>noctua</b></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="../index.html#chain" data-i18n="nav.chain">the chain</a>
+      <a href="../index.html#stages" data-i18n="nav.stages">the stages</a>
+      <a href="index.html" data-i18n="nav.docs">the pages</a>
+      <a href="../index.html#start" data-i18n="nav.start">get started</a>
+    </nav>
+    <div class="head-tools">
+      <button class="tool-btn" type="button" data-lang-toggle>IT</button>
+      <button class="tool-btn" type="button" data-theme-toggle>light</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="shell doc">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="../index.html" data-i18n="docs.home">Noctua</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page" data-i18n="docs.indexAll">all the pages</span>
+    </nav>
+    <header class="doc-head">
+      <h1 data-i18n="docs.indexHeading">One page per stage, generated from the package.</h1>
+    </header>
+    <section class="doc-section">
+      <p class="doc-note" data-i18n="docs.indexLede">Each page carries that skill's full
+        <code>description</code> verbatim, its row in the chain map, the lanes it sits on, and a
+        link to its source file. Nothing on them is written by hand.</p>
+      <div class="skill-grid" style="margin-top:var(--s-5)">
+{chr(10).join(cards)}
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="shell">
+    <p class="foot-brand" translate="no">{MARK}<b>noctua</b></p>
+    <p data-i18n="foot.note" style="margin-top:var(--s-3)">Every factual sentence on this page
+      traces to a file in the package; the trace table is <code>content/SOURCES.md</code> in this
+      repository.</p>
+  </div>
+</footer>
+</body>
+</html>
+"""
+
+
 def main() -> int:
     DOCS.mkdir(exist_ok=True)
     GRID.parent.mkdir(parents=True, exist_ok=True)
@@ -359,6 +467,9 @@ def main() -> int:
              EXTERNAL["source"], EXTERNAL["source_label"], True))
     pages += 1
 
+    (DOCS / "index.html").write_text(index_page())
+    pages += 1
+
     GRID.write_text(
         "<!-- GENERATED by tools/build_docs.py from noctua-package/*/SKILL.md — do not edit.\n"
         "     Not wired into index.html: those cards are condensations Delta approved at C3.\n"
@@ -366,7 +477,7 @@ def main() -> int:
         '<div class="skill-grid">\n' + "\n".join(cards) + "\n</div>\n")
 
     print(f"docs/ written — {pages} pages "
-          f"({len(PACKAGED)} from SKILL.md, 1 from the chain map); "
+          f"({len(PACKAGED)} from SKILL.md, 1 from the chain map, 1 index); "
           f"stages-grid.html regenerated with {len(cards)} cards")
     return 0
 

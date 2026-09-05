@@ -9,14 +9,17 @@ that exists. Any other absolute URL is a failure: this site makes no external re
 import json
 import re
 import sys
+from urllib.parse import urlsplit
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-PAGES = [ROOT / "index.html", *sorted((ROOT / "docs").glob("*.html"))]
+PAGES = [ROOT / "index.html", ROOT / "404.html", *sorted((ROOT / "docs").glob("*.html"))]
 LANGS = {p.stem for p in (ROOT / "i18n").glob("*.json")}
 SITE = json.loads((ROOT / "content" / "site.json").read_text()) \
     if (ROOT / "content" / "site.json").exists() else {}
 ORIGIN = (SITE.get("origin") or "").rstrip("/") + "/" if SITE.get("origin") else ""
+# 404.html is served for any unmatched path, so its refs are absolute from the site root
+BASE_PATH = urlsplit(ORIGIN).path if ORIGIN else "/"
 
 # <link rel="canonical"> and <link rel="alternate"> are checked as origin URLs, not as files
 SELF_LINK = re.compile(r'<link\s+rel="(?:canonical|alternate)"[^>]*>')
@@ -56,6 +59,11 @@ for page in PAGES:
         elif ref.startswith("#"):
             if ref[1:] not in ids:
                 bad.append(f"{rel}: {ref} — no element with that id")
+        elif ref.startswith("/"):
+            if not ref.startswith(BASE_PATH):
+                bad.append(f"{rel}: {ref} — root-absolute but not under {BASE_PATH}")
+            elif not (ROOT / ref[len(BASE_PATH):].split("#")[0] or ROOT).exists():
+                bad.append(f"{rel}: {ref} — file not found")
         else:
             target = (page.parent / ref.split("#")[0]).resolve()
             if not target.exists():
