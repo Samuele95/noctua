@@ -1,0 +1,30 @@
+/* The hero — the owl, the claim, three numbers (Delta's C2 pick).
+   The first screen says what this is and who stands behind the numbers; the chain is
+   section two, where a reader who is now interested can spend real time. */
+
+.hero { padding-block: var(--s-9) var(--s-8); border-bottom: 1px solid var(--line-soft); }
+.hero-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  gap: var(--s-8); align-items: center;
+}
+.hero-copy { display: flex; flex-direction: column; gap: var(--s-5); align-items: flex-start; }
+.hero h1 {
+  font-size: clamp(2.5rem, 6.8vw, var(--t-4xl));
+  max-width: 12ch;
+}
+.hero .eyebrow { margin-bottom: calc(var(--s-2) * -1); }
+.hero .lede code { color: var(--accent-text); }
+.hero .figures { margin-top: var(--s-2); }
+
+.hero-mark { display: grid; place-items: center; }
+.hero-mark svg { width: min(100%, 340px); height: auto; color: var(--text); }
+
+.chain-section { padding-block: var(--s-9); }
+
+@media (max-width: 900px) {
+  .hero { padding-block: var(--s-7) var(--s-6); }
+  .hero-grid { grid-template-columns: 1fr; gap: var(--s-6); }
+  .hero-mark { order: -1; justify-items: start; }
+  .hero-mark svg { width: 132px; }
+  .hero h1 { max-width: none; }
+}

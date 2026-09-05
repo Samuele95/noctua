@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://samuele95.github.io/noctua/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/index.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/index.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/index.html"/>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://samuele95.github.io/noctua/docs/blueprint.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/docs/blueprint.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/docs/blueprint.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/docs/blueprint.html"/>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://samuele95.github.io/noctua/docs/data-lens.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/docs/data-lens.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/docs/data-lens.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/docs/data-lens.html"/>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://samuele95.github.io/noctua/docs/dataset-forge.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/docs/dataset-forge.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/docs/dataset-forge.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/docs/dataset-forge.html"/>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://samuele95.github.io/noctua/docs/dataset-shaper.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/docs/dataset-shaper.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/docs/dataset-shaper.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/docs/dataset-shaper.html"/>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://samuele95.github.io/noctua/docs/document-project.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/docs/document-project.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/docs/document-project.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/docs/document-project.html"/>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://samuele95.github.io/noctua/docs/domain-forge.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/docs/domain-forge.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/docs/domain-forge.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/docs/domain-forge.html"/>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://samuele95.github.io/noctua/docs/inferred-questions.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/docs/inferred-questions.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/docs/inferred-questions.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/docs/inferred-questions.html"/>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://samuele95.github.io/noctua/docs/model-chat.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/docs/model-chat.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/docs/model-chat.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/docs/model-chat.html"/>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+  <url>
+    <loc>https://samuele95.github.io/noctua/docs/spec-analysis.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/docs/spec-analysis.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/docs/spec-analysis.html?lang=it"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/docs/spec-analysis.html"/>
+    <lastmod>2026-09-05</lastmod>
+  </url>
+</urlset>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Noctua">
+  <title>Noctua — the watcher over the lane</title>
+  <desc>One open eye — the O of OWL, hooded like Athene noctua's — above a lane of stages. The pupil is off centre because it is looking at the stage the orchestrator is running.</desc>
+  <circle cx="32" cy="27" r="14.5" fill="none" stroke="currentColor" stroke-width="6"/>
+  <path d="M 17.72 24.48 A 14.5 14.5 0 0 1 46.28 24.48" fill="none" stroke="currentColor"
+        stroke-width="10.5" stroke-linecap="butt"/>
+  <circle cx="27.5" cy="30" r="4.8" fill="#F0C24B"/>
+  <rect x="9" y="50.5" width="46" height="5" rx="2.5" fill="currentColor" opacity="0.4"/>
+  <circle cx="13.5" cy="53" r="5" fill="currentColor"/>
+  <circle cx="27.5" cy="53" r="6.3" fill="#F0C24B"/>
+  <circle cx="41.5" cy="53" r="5" fill="currentColor"/>
+  <circle cx="55.5" cy="53" r="5" fill="currentColor"/>
+</svg>

@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "title": "Demo layer",
+  "items": [
+    {"id": "d-1", "label": "first demo item"},
+    {"id": "d-2", "label": "second demo item"}
+  ]
+}

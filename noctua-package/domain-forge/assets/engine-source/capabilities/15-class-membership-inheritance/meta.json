@@ -1,0 +1,7 @@
+{
+  "id": "15-class-membership-inheritance",
+  "title": "Class membership inheritance",
+  "exports": [
+    "inferClassMembershipInheritance"
+  ]
+}

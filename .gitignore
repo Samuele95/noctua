@@ -1,0 +1,7 @@
+node_modules/
+__pycache__/
+*.pyc
+
+# Screenshots are 39 MB of build output: regenerate them with `node tools/shoot.js`
+# rather than carrying them in the repo. Nothing the site serves points at them.
+screenshots/

@@ -1,0 +1,19 @@
+{
+  "title": "Property characteristics — Symmetric, Transitive, InverseOf",
+  "description": "OWL property characteristics that materialise new facts. Symmetric R(x,y) implies R(y,x). Transitive R(x,y) ∧ R(y,z) implies R(x,z). InverseOf R(x,y) implies R⁻¹(y,x). The default KB declares hasSpouse Symmetric, hasAncestor Transitive, and hasChild as InverseOf hasParent — the asserted facts should fan out into several inferences.",
+  "focusProvKinds": ["symmetric", "transitive", "inverseOf"],
+  "defaultKB": {
+    "@graph": [
+      {"@id": "ex:Person", "@type": "owl:Class"},
+      {"@id": "ex:hasSpouse", "@type": "owl:ObjectProperty", "characteristics": ["Symmetric"], "rdfs:domain": "ex:Person", "rdfs:range": "ex:Person"},
+      {"@id": "ex:hasAncestor", "@type": "owl:ObjectProperty", "characteristics": ["Transitive"], "rdfs:domain": "ex:Person", "rdfs:range": "ex:Person"},
+      {"@id": "ex:hasParent", "@type": "owl:ObjectProperty", "inverseOf": "ex:hasChild", "rdfs:domain": "ex:Person", "rdfs:range": "ex:Person"},
+      {"@id": "ex:hasChild", "@type": "owl:ObjectProperty", "rdfs:domain": "ex:Person", "rdfs:range": "ex:Person"},
+      {"@id": "ex:alice", "@type": ["owl:NamedIndividual", "ex:Person"], "ex:hasSpouse": "ex:bob", "ex:hasChild": "ex:carol"},
+      {"@id": "ex:bob", "@type": ["owl:NamedIndividual", "ex:Person"]},
+      {"@id": "ex:carol", "@type": ["owl:NamedIndividual", "ex:Person"], "ex:hasAncestor": "ex:dora"},
+      {"@id": "ex:dora", "@type": ["owl:NamedIndividual", "ex:Person"], "ex:hasAncestor": "ex:eve"},
+      {"@id": "ex:eve", "@type": ["owl:NamedIndividual", "ex:Person"]}
+    ]
+  }
+}

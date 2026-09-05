@@ -1,0 +1,13 @@
+{
+  "title": "Subclass closure — RDFS9 transitive subClassOf",
+  "description": "If A ⊑ B and B ⊑ C, the reasoner derives A ⊑ C. The default KB has a chain Father ⊑ Parent ⊑ Person; you should see Father ⊑ Person highlighted as an inferred subclass. Add another link (e.g. GrandFather ⊑ Father) to see the chain extend automatically.",
+  "focusProvKinds": ["subClassOf", "equivalentClass"],
+  "defaultKB": {
+    "@graph": [
+      {"@id": "ex:Person", "@type": "owl:Class"},
+      {"@id": "ex:Parent", "@type": "owl:Class", "subClassOf": "ex:Person"},
+      {"@id": "ex:Father", "@type": "owl:Class", "subClassOf": "ex:Parent"},
+      {"@id": "ex:GrandFather", "@type": "owl:Class", "subClassOf": "ex:Father"}
+    ]
+  }
+}

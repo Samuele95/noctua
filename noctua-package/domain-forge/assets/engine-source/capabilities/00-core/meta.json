@@ -1,0 +1,9 @@
+{
+  "id": "00-core",
+  "title": "Core",
+  "exports": [
+    "initReasonerState",
+    "seedAssertedFacts",
+    "runReasoner"
+  ]
+}

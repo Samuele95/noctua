@@ -1,0 +1,5 @@
+{
+  "$comment": "The one place the deployed origin is written. Everything that needs an absolute URL — the canonical link, the hreflang alternates, og:image, twitter:image, sitemap.xml — is derived from it. Change it here and re-run tools/stamp_origin.py + tools/build_sitemap.py.",
+  "origin": "https://samuele95.github.io/noctua/",
+  "repo": "https://github.com/Samuele95/noctua"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "50-consistency",
+  "title": "Consistency",
+  "exports": [
+    "detectContradictions"
+  ]
+}

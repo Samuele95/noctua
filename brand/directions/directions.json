@@ -1,0 +1,52 @@
+{
+  "directions": [
+    {
+      "n": 1,
+      "name": "The verifying pair",
+      "idea": "The same aperture drawn twice — once as a circle, once as a polygon.",
+      "palette": [
+        {"hex": "#0A0F1C", "name": "Night", "role": "neutral"},
+        {"hex": "#EEF0F6", "name": "Bone", "role": "neutral"},
+        {"hex": "#F5B43C", "name": "Iris", "role": "accent"},
+        {"hex": "#8FA8D8", "name": "Moon", "role": "accent"},
+        {"hex": "#1A2440", "name": "Slate", "role": "surface"}
+      ],
+      "type": {"display": "Fraunces SemiBold", "displayStack": "Fraunces, Georgia, serif",
+               "text": "Inter", "textStack": "Inter, system-ui, sans-serif"},
+      "dark": {"ink": "#EEF0F6", "bg": "#0A0F1C"},
+      "light": {"ink": "#0A0F1C", "bg": "#EEF0F6"}
+    },
+    {
+      "n": 2,
+      "name": "The additive stack",
+      "idea": "The owl built from stacked layers, each one keeping everything above it.",
+      "palette": [
+        {"hex": "#12100E", "name": "Ink", "role": "neutral"},
+        {"hex": "#F4F1EA", "name": "Paper", "role": "neutral"},
+        {"hex": "#C8622B", "name": "Terracotta", "role": "accent"},
+        {"hex": "#4A6B5F", "name": "Moss", "role": "accent"},
+        {"hex": "#8C8579", "name": "Stone", "role": "surface"}
+      ],
+      "type": {"display": "Space Grotesk Medium", "displayStack": "Space Grotesk, Inter, sans-serif",
+               "text": "IBM Plex Sans", "textStack": "IBM Plex Sans, system-ui, sans-serif"},
+      "dark": {"ink": "#F4F1EA", "bg": "#12100E"},
+      "light": {"ink": "#12100E", "bg": "#F4F1EA"}
+    },
+    {
+      "n": 3,
+      "name": "The watcher over the lane",
+      "idea": "One hooded eye above a lane of stages, its pupil on the stage being run.",
+      "palette": [
+        {"hex": "#07090D", "name": "Void", "role": "neutral"},
+        {"hex": "#DCE3EC", "name": "Signal", "role": "neutral"},
+        {"hex": "#F0C24B", "name": "Beam", "role": "accent"},
+        {"hex": "#B4453A", "name": "Rust", "role": "accent"},
+        {"hex": "#3F4A57", "name": "Graphite", "role": "surface"}
+      ],
+      "type": {"display": "JetBrains Mono Medium", "displayStack": "JetBrains Mono, ui-monospace, monospace",
+               "text": "Inter", "textStack": "Inter, system-ui, sans-serif"},
+      "dark": {"ink": "#DCE3EC", "bg": "#07090D"},
+      "light": {"ink": "#07090D", "bg": "#DCE3EC"}
+    }
+  ]
+}

@@ -1,0 +1,465 @@
+{
+ "schema": "data-lens/analysis@1",
+ "source": {
+  "model_digest": "sha256:(stamped by the platform writer)"
+ },
+ "context": {
+  "reading": "The geometry layer settled this dataset's shape before any of the work below: eight primitive columns, five columns that are the head of a rule (total, subtotal, city, region, late), and one partition — late, with delivered_days held out as the column that defines it. This pass therefore does not ask what is derivable from what; it asks what is true of the values themselves, and what any of it changes downstream. Where the two touch, the geometry wins: a perfect association between zip, city and region is a rule the forge already wrote, not a discovery, and it is read here as a check that the rule holds, not as a finding."
+ },
+ "modules": {
+  "quality": {
+   "reading": "Nothing is missing, nothing is duplicated, no value falls outside the range its column's meaning allows, and no category differs from another only by case or whitespace. That is a short paragraph because the file deserves a short paragraph: a synthetic extract with no collection history has no collection defects, and saying so is more useful than filling the section. The consequence for the pass is that every later module reads the values as they are, with no imputation standing between the measurement and the reading."
+  },
+  "distributions": {
+   "reading": "Two shapes matter here. The first is unit_price, whose kernel density has two peaks rather than one; the second is the pair total and subtotal, whose right skew of about 0.95 is inherited from the multiplication that defines them and leaves with them when the derived columns are dropped. The third thing the module reports is a disagreement between outlier detectors so large that it is itself the finding: the isolation forest flags three hundred and sixty-six of six hundred rows while the interquartile fence and the median-absolute-deviation rule flag none, and the three agree on nothing at all."
+  },
+  "relations": {
+   "reading": "Among the basis members there is no residual monotone association worth the name: the largest Spearman coefficient in the pair family is below 0.3 and none survives the Benjamini-Hochberg correction, and the variance-inflation factors of the numeric basis sit at 1.01, which is what independence looks like when it is real. The perfect associations in the file are exactly the ones the geometry layer already derives, so they are absent from this table by construction rather than by oversight. One interaction term, unit_price by weight_kg, raises the explained variance of the label by four thousandths at an adjusted p of 0.10 — which is to say, by nothing."
+  },
+  "inference": {
+   "reading": "Fourteen group comparisons were run over the nominal columns and the numeric basis, every one of them with its assumptions checked before its p-value and its family corrected together. Not one survives: the smallest adjusted p is 0.45, and the largest omega-squared is 0.006, which would be a negligible effect even if it were significant. The label itself is almost perfectly balanced at 49 to 51. The honest summary is that no column in this file distinguishes the groups of any other, and the two things that look like perfect association — zip with city, zip with region — are the lookup rules the forge wrote."
+  },
+  "segments": {
+   "reading": "The k-means scan over the standardized numeric basis returns a silhouette that never leaves the band between 0.37 and 0.39 across every k from two to eight. A silhouette that flat is the signature of a space with no natural grouping in it: the stability of the partitions under resampling is high precisely because there is nothing to be unstable about — the algorithm cuts the same featureless cloud the same way each time. The k the scan nominates, four, is an artefact of the score's third decimal, and segmenting on it would put a name on noise."
+  },
+  "importance": {
+   "reading": "This is the module that decides whether the partition the forge proposed is worth anything, and its answer is no. With delivered_days held out — and it must be held out, because late is defined as delivered_days exceeding seven — a regularised linear model reaches a cross-validated ROC AUC of 0.484 and gradient boosting reaches 0.464, both of them below the 0.5 a coin achieves, with confidence intervals that comfortably contain chance. The learning curve does not rise with more rows. The leakage probe reports what the geometry already guaranteed: no feature collapses when the label's defining column is removed, because that column was never among the features."
+  },
+  "time_series": {
+   "reading": "There is a date on every order and it is worth one paragraph. The orders are not a regular series — several fall on the same day and a fifth of the consecutive dates are more than a day apart — so the module resampled to the modal interval of one day before measuring. Once the Theil-Sen trend is taken out, the residual autocorrelation has no local peak above 0.15, so the module reports no seasonal component rather than inventing one, and no level shift survives the segmentation penalty. For a downstream split this still matters: the rows carry an order, and a random split would let a model see the future."
+  },
+  "spatial": {},
+  "drift": {}
+ },
+ "findings": [
+  {
+   "id": "F1",
+   "module": "importance",
+   "severity": "high",
+   "title": "With its defining column held out, `late` is not predictable from what remains",
+   "columns": [
+    "late",
+    "delivered_days",
+    "unit_price",
+    "qty",
+    "discount_pct",
+    "zip",
+    "order_date",
+    "weight_kg",
+    "note"
+   ],
+   "evidence": {
+    "metric": "roc_auc",
+    "baseline": 0.5,
+    "logistic_l2_cv": 0.4841,
+    "logistic_l2_ci": [
+     0.4293,
+     0.5389
+    ],
+    "gradient_boosting_cv": 0.4636,
+    "gradient_boosting_ci": [
+     0.4083,
+     0.5188
+    ],
+    "learning_curve_last": 0.4674,
+    "n": 600,
+    "effect": {
+     "name": "AUC above chance",
+     "value": -0.0159,
+     "ci": [
+      -0.0707,
+      0.0389
+     ]
+    }
+   },
+   "method": {
+    "name": "stratified 5-fold cross-validation of a regularised linear model and a gradient-boosting model on the partition's features",
+    "assumptions": [
+     "the folds are exchangeable",
+     "the features exclude the leakage set"
+    ],
+    "assumptions_checked": "passed",
+    "correction": "none — a single pre-registered comparison against the chance baseline"
+   },
+   "reading": "The partition the geometry layer proposes is late against everything except delivered_days, and the whole point of holding delivered_days out is that late is defined from it. What is left over — the price, the quantity, the discount, the destination, the date, the weight and the note — carries no signal about lateness at all: both model families land below chance with intervals that straddle it, and feeding them more rows does not help. This is not a modelling failure to be tuned away; it is the dataset saying that nothing it records causes or anticipates a late delivery.",
+   "so_what": {
+    "modeling": "do not train on this partition expecting a useful classifier; a model that scores well on it is reading delivered_days through a back door",
+    "collection": "the columns that would predict lateness — carrier, route, dispatch time, weather — are not in this file; ask for them before modelling",
+    "preprocessing": "nothing preprocessing can fix; no transformation creates signal",
+    "interpretation": "report the AUC with its interval, not as 'the model needs work'"
+   },
+   "figures": [
+    "fig-importance",
+    "fig-learning-curve"
+   ],
+   "transformation_candidates": []
+  },
+  {
+   "id": "F2",
+   "module": "distributions",
+   "severity": "medium",
+   "title": "`unit_price` is two populations, not one: modes near 31 and 78",
+   "columns": [
+    "unit_price"
+   ],
+   "evidence": {
+    "kde_peaks": 2,
+    "skew": 0.0117,
+    "normality_p": 1.6e-13,
+    "gaussian_mixture_bic": {
+     "1": 5695.4,
+     "2": 5598.2,
+     "3": 5584.2
+    },
+    "delta_bic_1_vs_2": 97.2,
+    "component_means": [
+     31.34,
+     78.45
+    ],
+    "component_weights": [
+     0.461,
+     0.539
+    ],
+    "n": 600,
+    "effect": {
+     "name": "separation between component means in pooled SD",
+     "value": 1.72
+    }
+   },
+   "method": {
+    "name": "kernel-density peak count, confirmed by a Gaussian-mixture BIC comparison (turn 2)",
+    "assumptions": [
+     "the mixture components are approximately Gaussian"
+    ],
+    "assumptions_checked": "n/a",
+    "correction": "none — model selection by BIC, not a hypothesis test"
+   },
+   "reading": "The price column is symmetric and its skew is essentially zero, which would ordinarily end the paragraph; the density says otherwise. Two peaks sit near 31 and 78 with almost equal weight, and a mixture of two Gaussians beats a single one by 97 points of BIC — a margin no sampling accident produces at this size. What the file does not carry is the column that would name the two families, so the honest statement is that unit_price is a mixture of two populations this dataset does not identify.",
+   "so_what": {
+    "preprocessing": "a single centre-and-scale misrepresents both halves; scale robustly or bin the column at the valley near 55 and keep the numeric beside the bin",
+    "modeling": "a linear model reads the mean of a bimodal column as a value that almost no row has; a tree splits at the valley and is indifferent",
+    "collection": "the missing column is whatever distinguishes the two price families — a product line or a channel; ask for it",
+    "interpretation": "quote the two modes, never the mean of unit_price"
+   },
+   "figures": [
+    "fig-distributions"
+   ],
+   "transformation_candidates": [
+    {
+     "id": "T1",
+     "op": "scale",
+     "columns": [
+      "unit_price"
+     ],
+     "params": {
+      "kind": "robust",
+      "columns": [
+       "unit_price"
+      ]
+     },
+     "rationale": "F2 — a bimodal column has no meaningful mean to centre on",
+     "alternatives": [
+      {
+       "op": "bin",
+       "params": {
+        "kind": "custom",
+        "edges": [
+         0,
+         55,
+         100
+        ],
+        "replace": false
+       },
+       "when": "if a model family is chosen that cannot split the column itself"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F3",
+   "module": "distributions",
+   "severity": "medium",
+   "title": "The three outlier detectors agree on nothing: 366 flags against 0 and 0",
+   "columns": [
+    "unit_price",
+    "weight_kg",
+    "total",
+    "subtotal"
+   ],
+   "evidence": {
+    "unit_price": {
+     "iqr": 0,
+     "mad": 0,
+     "isolation_forest": 366,
+     "agreement_all_three": 0,
+     "isolation_forest_share": 0.61,
+     "isolation_forest_flagged_range": [
+      5.2,
+      99.89
+     ],
+     "whole_range": [
+      5.2,
+      99.89
+     ]
+    },
+    "weight_kg": {
+     "iqr": 0,
+     "mad": 0,
+     "isolation_forest": 224
+    },
+    "effect": {
+     "name": "share of rows flagged by the isolation forest",
+     "value": 0.61
+    }
+   },
+   "method": {
+    "name": "three-detector outlier scan (IQR fence, MAD z > 3.5, isolation forest with contamination='auto'), confirmed by turn 1",
+    "assumptions": [
+     "the detectors are comparable only where a tail exists"
+    ],
+    "assumptions_checked": "n/a",
+    "correction": "none — a descriptive comparison, not a test"
+   },
+   "reading": "An isolation forest that flags sixty-one per cent of the rows, over exactly the range the whole column occupies, has not found outliers: it has found that the column has no dense core to be outside of, which is what a broad, bimodal, almost uniform distribution looks like to an isolation criterion. The interquartile fence and the median-absolute-deviation rule both flag nothing, and the three detectors share not a single row. The reading is that this dataset has no outliers in its numeric basis, and that the forest's output here is an artefact of its automatic contamination setting rather than evidence about the data.",
+   "so_what": {
+    "preprocessing": "do not winsorize or clip anything on this evidence; there is nothing to trim",
+    "interpretation": "an isolation forest needs a stated contamination rate on a broad distribution, or its flags mean nothing",
+    "modeling": "none",
+    "collection": "none"
+   },
+   "figures": [
+    "fig-distributions"
+   ],
+   "transformation_candidates": []
+  },
+  {
+   "id": "F4",
+   "module": "segments",
+   "severity": "low",
+   "title": "No natural segmentation: the silhouette is flat at 0.38 for every k from 2 to 8",
+   "columns": [
+    "unit_price",
+    "qty",
+    "discount_pct",
+    "delivered_days",
+    "weight_kg"
+   ],
+   "evidence": {
+    "silhouette_by_k": {
+     "2": 0.371,
+     "3": 0.389,
+     "4": 0.391,
+     "5": 0.384,
+     "6": 0.382,
+     "7": 0.39,
+     "8": 0.379
+    },
+    "stability_ari_at_best_k": 0.937,
+    "chosen_k_by_score": 4,
+    "range_of_silhouette": 0.02,
+    "effect": {
+     "name": "silhouette spread across k",
+     "value": 0.02
+    }
+   },
+   "method": {
+    "name": "k-means scan k = 2..8 on the standardized numeric basis with silhouette and bootstrap-ARI stability, cross-checked against Ward agglomeration",
+    "assumptions": [
+     "the basis is numeric and scale-comparable after standardization"
+    ],
+    "assumptions_checked": "passed",
+    "correction": "none — a model-selection scan, not a test"
+   },
+   "reading": "A silhouette that varies by two hundredths across seven values of k is not choosing a number of clusters; it is reporting that there are none. The high resampling stability that comes with it is not corroboration either — a featureless cloud is cut the same way every time precisely because nothing in it resists the cut. Naming four segments here would give a business name to the arbitrary geometry of k-means.",
+   "so_what": {
+    "modeling": "do not add a segment label as a feature; it would be noise with a name",
+    "interpretation": "report that the customers in this file do not separate, which is itself worth knowing",
+    "preprocessing": "none",
+    "collection": "the columns that would separate them — channel, tenure, industry — are absent"
+   },
+   "figures": [
+    "fig-segments"
+   ],
+   "transformation_candidates": []
+  },
+  {
+   "id": "F5",
+   "module": "time_series",
+   "severity": "medium",
+   "title": "The rows carry a date, so any split must respect it",
+   "columns": [
+    "order_date"
+   ],
+   "evidence": {
+    "span": [
+     "2025-01-03",
+     "2025-12-30"
+    ],
+    "distinct_dates": 296,
+    "modal_interval": "1 day",
+    "gap_share": 0.186,
+    "largest_gap": "5 days",
+    "seasonal_period": null,
+    "trend_mann_kendall_p": 0.734,
+    "effect": {
+     "name": "share of consecutive dates separated by more than the modal interval",
+     "value": 0.186
+    }
+   },
+   "method": {
+    "name": "regularity census, Theil-Sen trend with Mann-Kendall, ACF peak search on the detrended residual",
+    "assumptions": [
+     "a monotone trend, for Mann-Kendall"
+    ],
+    "assumptions_checked": "n/a",
+    "correction": "none — a single pre-declared trend test"
+   },
+   "reading": "There is no trend and no periodic component: Mann-Kendall returns a p of 0.73 and the detrended autocorrelation has no local peak the module is willing to call a season. What remains true regardless is that these rows are ordered in time and span a year. A random train/test split would place later orders in the training set and earlier ones in the test set, and any model built that way would be evaluated on a past it had already seen.",
+   "so_what": {
+    "preprocessing": "split by time, not at random, and cut at a date rather than a row count",
+    "modeling": "evaluate on the later period only; that is the only estimate that answers the question anyone will ask of the model",
+    "interpretation": "the absence of a trend is a finding about this year, not a guarantee about the next",
+    "collection": "none"
+   },
+   "figures": [
+    "fig-time-series"
+   ],
+   "transformation_candidates": [
+    {
+     "id": "T2",
+     "op": "split",
+     "columns": [],
+     "params": {
+      "kind": "time",
+      "time_column": "order_date",
+      "test": 0.2,
+      "valid": 0.1
+     },
+     "rationale": "F5 — the rows are ordered in time; a random split would leak the future",
+     "alternatives": [
+      {
+       "op": "split",
+       "params": {
+        "kind": "stratified",
+        "by": "late",
+        "test": 0.2
+       },
+       "when": "if the model will never be used to predict forward, and class balance in the test part matters more than temporal honesty"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "transcript": [
+  {
+   "turn": 1,
+   "question": "Are the isolation-forest outliers in unit_price real, or an artefact?",
+   "method": {
+    "name": "three-detector comparison with the flagged range checked against the column's own range",
+    "assumptions": [],
+    "assumptions_checked": "n/a"
+   },
+   "code": "# Are the isolation-forest \"outliers\" in unit_price real? Compare the three detectors and\n# look at what the flagged rows have in common.\nimport numpy as np\nfrom sklearn.ensemble import IsolationForest\nv = df['unit_price'].to_numpy(float)\nq1, q3 = np.percentile(v, [25, 75]); iqr = q3 - q1\niqr_out = set(np.where((v < q1 - 1.5*iqr) | (v > q3 + 1.5*iqr))[0].tolist())\nmed = np.median(v); mad = np.median(np.abs(v - med))\nmad_out = set(np.where(np.abs(v - med) / (1.4826*mad) > 3.5)[0].tolist())\niso = IsolationForest(random_state=7, contamination=\"auto\").fit(v.reshape(-1,1))\niso_out = set(np.where(iso.predict(v.reshape(-1,1)) == -1)[0].tolist())\nresult = {\"n\": len(v), \"iqr\": len(iqr_out), \"mad\": len(mad_out), \"isolation_forest\": len(iso_out),\n          \"agreement_all_three\": len(iqr_out & mad_out & iso_out),\n          \"iso_flagged_range\": [float(v[sorted(iso_out)].min()), float(v[sorted(iso_out)].max())],\n          \"whole_range\": [float(v.min()), float(v.max())],\n          \"iso_flagged_share\": round(len(iso_out)/len(v), 3)}\n",
+   "result": {
+    "n": 600,
+    "iqr": 0,
+    "mad": 0,
+    "isolation_forest": 366,
+    "agreement_all_three": 0,
+    "iso_flagged_range": [
+     5.2,
+     99.89
+    ],
+    "whole_range": [
+     5.2,
+     99.89
+    ],
+    "iso_flagged_share": 0.61
+   },
+   "figure": null,
+   "answer": "An artefact. The forest flags 366 of 600 rows — sixty-one per cent — and the range of what it flags, 5.2 to 99.89, is exactly the range of the column itself. The interquartile fence and the MAD rule flag nothing, and the intersection of all three detectors is empty. A detector that calls most of a column anomalous over its whole span is describing its own contamination setting, not the data; there are no outliers in unit_price.",
+   "grounded": true,
+   "caveats": [
+    "The comparison is descriptive: it establishes that the detectors disagree, not which one would be right on a column that did have a tail."
+   ],
+   "finding_ref": "F3",
+   "transformation_candidates": []
+  },
+  {
+   "turn": 2,
+   "question": "Is the bimodality of unit_price real, or the shoulder of one distribution?",
+   "method": {
+    "name": "Gaussian-mixture model selection by BIC over k = 1, 2, 3",
+    "assumptions": [
+     "the components are approximately Gaussian"
+    ],
+    "assumptions_checked": "n/a"
+   },
+   "code": "# Is the bimodality of unit_price a real split, or the shoulder of one distribution?\n# Fit one and two Gaussians and compare by BIC.\nimport numpy as np\nfrom sklearn.mixture import GaussianMixture\nv = df['unit_price'].to_numpy(float).reshape(-1, 1)\nbic = {}\nfor k in (1, 2, 3):\n    bic[k] = float(GaussianMixture(k, random_state=7, n_init=5).fit(v).bic(v))\nbest = min(bic, key=bic.get)\ngm = GaussianMixture(2, random_state=7, n_init=5).fit(v)\nresult = {\"bic\": {str(k): round(x, 1) for k, x in bic.items()}, \"best_k_by_bic\": best,\n          \"two_component_means\": sorted(float(m) for m in gm.means_.ravel()),\n          \"two_component_weights\": sorted(float(w) for w in gm.weights_),\n          \"delta_bic_1_vs_2\": round(bic[1] - bic[2], 1)}\n",
+   "result": {
+    "bic": {
+     "1": 5695.4,
+     "2": 5598.2,
+     "3": 5584.2
+    },
+    "best_k_by_bic": 3,
+    "two_component_means": [
+     31.3417729375,
+     78.4496746978
+    ],
+    "two_component_weights": [
+     0.4612172534,
+     0.5387827466
+    ],
+    "delta_bic_1_vs_2": 97.2
+   },
+   "figure": null,
+   "answer": "Real. Two components beat one by 97.2 points of BIC — a decisive margin — with means at 31.3 and 78.4 and weights of 0.46 and 0.54, which is to say two populations of almost equal size rather than a main body with a shoulder. Three components improve BIC by a further 14, which on this evidence is the mixture starting to fit the flat region between the peaks rather than a third family. The reading stands: two price populations, unnamed in this file.",
+   "grounded": true,
+   "caveats": [
+    "BIC prefers k = 3 marginally; the two-component reading is the parsimonious one, and nothing in the file names a third family.",
+    "A Gaussian mixture assumes Gaussian components; the same conclusion follows from the density's two peaks without that assumption."
+   ],
+   "finding_ref": "F2",
+   "transformation_candidates": []
+  },
+  {
+   "turn": 3,
+   "question": "Which carrier is responsible for the late deliveries?",
+   "method": {
+    "name": "none — the question names a column the dataset does not carry",
+    "assumptions": [],
+    "assumptions_checked": "n/a"
+   },
+   "code": null,
+   "result": null,
+   "figure": null,
+   "answer": "Unanswerable from this file. There is no carrier, route, or dispatch column here: the fifteen columns are an order's price, quantity, discount, destination, date, delivered days, weight, note and the derived totals. F1 is the same gap seen from the modelling side — nothing recorded here predicts lateness. The question is a good one for the next extract, and it names exactly which column to ask for.",
+   "grounded": false,
+   "caveats": [],
+   "finding_ref": "F1",
+   "transformation_candidates": []
+  }
+ ],
+ "stances": [
+  {
+   "id": "ST1",
+   "kind": "genuine-outliers",
+   "columns": [
+    "unit_price",
+    "weight_kg"
+   ],
+   "assertion": "the numeric basis has no outliers; the isolation forest's flags are an artefact of its automatic contamination rate and must not license a winsorize or a clip",
+   "source": "turn 1"
+  }
+ ],
+ "handoff": {
+  "shaper_candidates": [
+   "T2",
+   "T1"
+  ],
+  "note": "T2 first, because the split governs what every fitted step afterwards may see; then T1's robust scaling of the bimodal price. Nothing else in this pass asks for a transformation, and F1 asks for a different dataset rather than a different recipe."
+ }
+}

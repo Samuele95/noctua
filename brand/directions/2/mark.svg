@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Noctua">
+  <title>Noctua — the additive stack</title>
+  <desc>Athene noctua in profile, perched, divided into three stacked layers by two seams: head, mantle, belly. Each layer keeps everything above it; the perch is the base they all rest on.</desc>
+  <defs>
+    <mask id="n2-seams">
+      <rect x="0" y="0" width="64" height="64" fill="#fff"/>
+      <path d="M 4 30 C 14 25.6, 34 26.4, 52 31.5" fill="none" stroke="#000" stroke-width="3"/>
+      <path d="M 4 43.6 C 16 40.6, 36 41.4, 53 45.6" fill="none" stroke="#000" stroke-width="3"/>
+      <circle cx="21.5" cy="19.5" r="7.6" fill="#000"/>
+    </mask>
+  </defs>
+  <g mask="url(#n2-seams)">
+    <path d="M 11 19 C 11 9, 19 5.5, 26.5 5.5
+             C 34.5 5.5, 39.5 9.5, 40 18.5
+             C 44.5 25, 48 32, 48.5 41.5
+             C 49 51.5, 42.5 57.5, 31 57.5
+             C 18 57.5, 9.5 48.5, 9.5 36
+             C 9.5 28, 10 22.5, 11 19 Z" fill="currentColor"/>
+    <path d="M 11.4 20 L 3.2 23.6 L 11.9 27.2 Z" fill="currentColor"/>
+  </g>
+  <circle cx="21.5" cy="19.5" r="5.2" fill="#C8622B"/>
+  <rect x="10" y="57.2" width="44" height="4.4" rx="2.2" fill="currentColor" opacity="0.42"/>
+</svg>

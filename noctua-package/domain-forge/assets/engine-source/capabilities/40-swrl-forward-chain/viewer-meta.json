@@ -1,0 +1,14 @@
+{
+  "title": "SWRL forward chaining",
+  "description": "For every SWRL rule whose antecedent matches the current model, fire the consequent. Antecedent atom types: class / objectProperty / dataProperty / builtin (six numeric comparators) / sameAs / differentFrom. The default KB classifies a transaction as HighValue if its amount ≥ 10000. Try changing the amount, or add another rule into the model-swrl block.",
+  "focusProvKinds": ["swrl"],
+  "defaultKB": {
+    "@graph": [
+      {"@id": "ex:Transaction", "@type": "owl:Class"},
+      {"@id": "ex:HighValue", "@type": "owl:Class", "subClassOf": "ex:Transaction"},
+      {"@id": "ex:hasAmount", "@type": "owl:DatatypeProperty", "rdfs:domain": "ex:Transaction", "rdfs:range": "xsd:decimal"},
+      {"@id": "ex:tx1", "@type": ["owl:NamedIndividual", "ex:Transaction"], "ex:hasAmount": 12500},
+      {"@id": "ex:tx2", "@type": ["owl:NamedIndividual", "ex:Transaction"], "ex:hasAmount": 200}
+    ]
+  }
+}

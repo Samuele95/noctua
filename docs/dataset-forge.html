@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dataset-forge — Noctua</title>
+<meta name="description" data-i18n-attr="content:docs.metaDescription" content="What this Noctua stage consumes, what it produces, how the orchestrator checks its product and where it stops for a human — read from the chain map and the skill's own description.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dataset-forge — Noctua">
+<meta property="og:description" data-i18n-attr="content:docs.metaDescription" content="What this Noctua stage consumes, what it produces, how the orchestrator checks its product and where it stops for a human.">
+<link rel="canonical" href="https://samuele95.github.io/noctua/docs/dataset-forge.html">
+<meta property="og:url" content="https://samuele95.github.io/noctua/docs/dataset-forge.html">
+<meta property="og:image" content="https://samuele95.github.io/noctua/brand/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" data-i18n-attr="content:meta.ogImageAlt" content="The Noctua mark — two owl eyes, one a circle and one a polygon — beside the words &ldquo;The owl over the chain&rdquo; and three numbers.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://samuele95.github.io/noctua/brand/og-image.png">
+<link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/docs/dataset-forge.html?lang=en">
+<link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/docs/dataset-forge.html?lang=it">
+<link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/docs/dataset-forge.html">
+<link rel="icon" href="../brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../brand/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../brand/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/space-grotesk-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/chain.css">
+<link rel="stylesheet" href="../assets/css/landing.css">
+<link rel="stylesheet" href="../assets/css/docs.css">
+<script src="../assets/js/i18n-data.js"></script>
+<script src="../assets/js/i18n.js" defer></script>
+<script src="../assets/js/theme.js"></script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="a11y.skip">Skip to content</a>
+
+<header class="site-head">
+  <div class="shell">
+    <a class="brand" href="../index.html" translate="no"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M6.5 20.5C16 14.5 25 19 32 23.5 39 19 48 14.5 57.5 20.5" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="20" cy="35" r="10.5" fill="none" stroke="currentColor" stroke-width="5.5"/><circle cx="20" cy="35" r="5.4" fill="#C8622B"/><path d="M44 24.5l9.09 5.25v10.5L44 45.5l-9.09-5.25v-10.5z" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linejoin="round"/><path d="M44 29.6l4.68 2.7v5.4L44 40.4l-4.68-2.7v-5.4z" fill="#C8622B"/><path d="M27.8 46.8h8.4L32 56.2z" fill="currentColor"/></svg><b>noctua</b></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="../index.html#chain" data-i18n="nav.chain">the chain</a>
+      <a href="../index.html#stages" data-i18n="nav.stages">the stages</a>
+      <a href="../index.html#verify" data-i18n="nav.verify">how it verifies</a>
+      <a href="../index.html#start" data-i18n="nav.start">get started</a>
+    </nav>
+    <div class="head-tools">
+      <button class="tool-btn" type="button" data-lang-toggle>IT</button>
+      <button class="tool-btn" type="button" data-theme-toggle>light</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <article class="shell doc">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="../index.html" data-i18n="docs.home">Noctua</a>
+      <span aria-hidden="true">/</span>
+      <a href="../index.html#stages" data-i18n="docs.stages">the stages</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page" translate="no">dataset-forge</span>
+    </nav>
+
+    <header class="doc-head">
+      <h1 translate="no">dataset-forge</h1>
+      <code class="doc-cmd">/dataset-forge</code>
+    </header>
+    <section class="doc-section">
+      <h2 data-i18n="docs.what">What it is</h2>
+      <p class="doc-note" data-i18n="docs.descVerbatim">The skill&rsquo;s own description, unedited. It stays in English because it is the package&rsquo;s text, not ours.</p>
+      <p class="doc-desc" lang="en">Geometric, qualitative, neurosymbolic analysis of a tabular dataset: its effective and intrinsic DIMENSIONS, its BASIS (the minimal set of mutually non-derivable features, every other column expressed as a derivation rule), the residual DEPENDENCIES among basis members, and the FEATURE/LABEL partitions they imply, modeled as a domain-forge ontology (T-box, A-box sample, SWRL/Horn rules) so the engines verify what the model proposes, plus compact statistics. Emits a domain-forge-compatible .domain.html with an interactive geometry explorer, input to /model-chat, /inferred-questions, /data-lens and a /domain-forge refine. Trigger when the user hands over a dataset and asks about its dimensions, span, basis, redundant or derived columns, feature/label separation, a dataset ontology or knowledge base, a geometric or neurosymbolic data analysis, or invokes /dataset-forge. Sibling forge of /domain-forge. Not for profiling or statistics (/data-lens), transforming data (/dataset-shaper), or prose (/domain-forge).</p>
+    </section>
+
+    <section class="doc-section">
+      <h2 data-i18n="docs.inChain">In the chain</h2>
+      <p class="doc-note" data-i18n="docs.rowNote">Every value below is a cell of
+        <code>noctua/references/chain-map.md</code> &sect; Stages, kept in its own words.</p>
+      <section class="doc-stage">
+        <h3><span class="doc-stage-name" translate="no">forge (dataset)</span>
+            <code lang="en">/dataset-forge &lt;dataset&gt; [--partition …]</code></h3>
+        <dl class="detail-grid">
+            <div class="detail-pair">
+              <dt data-i18n="chain.f.consumes">chain.f.consumes</dt>
+              <dd lang="en">dataset</dd>
+            </div>
+            <div class="detail-pair">
+              <dt data-i18n="chain.f.produces">chain.f.produces</dt>
+              <dd lang="en">&lt;stem&gt;.domain.html with geometry layer, memory § Dataset stances</dd>
+            </div>
+            <div class="detail-pair">
+              <dt data-i18n="chain.f.check">chain.f.check</dt>
+              <dd lang="en">validate_model.py exit 0 (13–16), smoke_geometry.py</dd>
+            </div>
+            <div class="detail-pair">
+              <dt data-i18n="chain.f.gate">chain.f.gate</dt>
+              <dd lang="en">FORK: on ≥ 2 label candidates</dd>
+            </div>
+            <div class="detail-pair">
+              <dt data-i18n="chain.f.unattended">chain.f.unattended</dt>
+              <dd lang="en">--unattended: partition provenance: abstained, ranked candidates</dd>
+            </div>
+            <div class="detail-pair">
+              <dt data-i18n="chain.f.rerun">chain.f.rerun</dt>
+              <dd lang="en">pass the model path (refine)</dd>
+            </div>
+        </dl>
+      </section>
+    </section>
+
+    <section class="doc-section">
+      <h2 data-i18n="docs.lanes">On the lanes</h2>
+      <p class="doc-note" data-i18n="docs.lanesNote">The lanes whose default order includes this
+        stage, from the chain map &sect; Lanes.</p>
+      <p class="chips"><code data-i18n="lane.dataset">dataset</code><code data-i18n="lane.data-project">data project</code></p>
+    </section>
+
+    <section class="doc-section">
+      <h2 data-i18n="docs.trigger">Trigger and flags</h2>
+      <p class="doc-note" data-i18n="docs.flagsNote">Every <code>--flag</code> that file names.
+        Skill-level and script-level flags are not separated here, because the file does not mark
+        the difference in a way a generator can read; open the source for the distinction.</p>
+      <p class="chips"><code>--partition</code><code>--strict</code><code>--unattended</code></p>
+    </section>
+
+    <section class="doc-section">
+      <h2 data-i18n="docs.source">Source</h2>
+      <p><a class="doc-source" href="../noctua-package/dataset-forge/SKILL.md"><span lang="en">dataset-forge/SKILL.md</span></a></p>
+    </section>
+  </article>
+</main>
+
+<footer class="site-foot">
+  <div class="shell">
+    <p class="foot-brand" translate="no"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M6.5 20.5C16 14.5 25 19 32 23.5 39 19 48 14.5 57.5 20.5" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="20" cy="35" r="10.5" fill="none" stroke="currentColor" stroke-width="5.5"/><circle cx="20" cy="35" r="5.4" fill="#C8622B"/><path d="M44 24.5l9.09 5.25v10.5L44 45.5l-9.09-5.25v-10.5z" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linejoin="round"/><path d="M44 29.6l4.68 2.7v5.4L44 40.4l-4.68-2.7v-5.4z" fill="#C8622B"/><path d="M27.8 46.8h8.4L32 56.2z" fill="currentColor"/></svg><b>noctua</b></p>
+    <p data-i18n="foot.note" style="margin-top:var(--s-3)">Every factual sentence on this page
+      traces to a file in the package; the trace table is <code>content/SOURCES.md</code> in this
+      repository.</p>
+  </div>
+</footer>
+</body>
+</html>

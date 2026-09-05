@@ -1,0 +1,7 @@
+{
+  "id": "10-subclass-closure",
+  "title": "Subclass closure",
+  "exports": [
+    "inferSubClassClosure"
+  ]
+}

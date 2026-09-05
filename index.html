@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta.title">Noctua — the owl over the chain</title>
+<meta name="description" data-i18n-attr="content:meta.description" content="Nine Claude Code skills that take a codebase, a database schema, prose or a dataset and hand back one self-contained HTML model whose own SPARQL, SWRL, Prolog and DMN engines verify what the language model proposes.">
+<link rel="canonical" href="https://samuele95.github.io/noctua/">
+<meta property="og:url" content="https://samuele95.github.io/noctua/">
+<meta property="og:type" content="website">
+<meta property="og:title" data-i18n-attr="content:meta.title" content="Noctua — the owl over the chain">
+<meta property="og:description" data-i18n-attr="content:meta.ogDescription" content="A neurosymbolic analysis chain for Claude Code. Nine skills, one self-contained HTML model, engines that verify what the language model proposes.">
+<meta property="og:image" content="https://samuele95.github.io/noctua/brand/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" data-i18n-attr="content:meta.ogImageAlt" content="The Noctua mark — two owl eyes, one a circle and one a polygon — beside the words &ldquo;The owl over the chain&rdquo; and three numbers: 78 / 78 acceptance, 19 invariants, 0 network dependencies.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://samuele95.github.io/noctua/brand/og-image.png">
+<link rel="alternate" hreflang="en" href="https://samuele95.github.io/noctua/?lang=en">
+<link rel="alternate" hreflang="it" href="https://samuele95.github.io/noctua/?lang=it">
+<link rel="alternate" hreflang="x-default" href="https://samuele95.github.io/noctua/">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="brand/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/space-grotesk-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/chain.css">
+<link rel="stylesheet" href="assets/css/hero.css">
+<link rel="stylesheet" href="assets/css/landing.css">
+<script src="assets/js/i18n-data.js"></script>
+<script src="assets/js/i18n.js" defer></script>
+<script src="assets/js/theme.js"></script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="a11y.skip">Skip to content</a>
+
+<header class="site-head">
+  <div class="shell">
+    <a class="brand" href="#top" translate="no"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M6.5 20.5C16 14.5 25 19 32 23.5 39 19 48 14.5 57.5 20.5" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="20" cy="35" r="10.5" fill="none" stroke="currentColor" stroke-width="5.5"/><circle cx="20" cy="35" r="5.4" fill="#C8622B"/><path d="M44 24.5l9.09 5.25v10.5L44 45.5l-9.09-5.25v-10.5z" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linejoin="round"/><path d="M44 29.6l4.68 2.7v5.4L44 40.4l-4.68-2.7v-5.4z" fill="#C8622B"/><path d="M27.8 46.8h8.4L32 56.2z" fill="currentColor"/></svg><b>noctua</b></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#chain" data-i18n="nav.chain">the chain</a>
+      <a href="#stages" data-i18n="nav.stages">the stages</a>
+      <a href="#verify" data-i18n="nav.verify">how it verifies</a>
+      <a href="#start" data-i18n="nav.start">get started</a>
+    </nav>
+    <div class="head-tools">
+      <button class="tool-btn" type="button" data-lang-toggle>IT</button>
+      <button class="tool-btn" type="button" data-theme-toggle>light</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="hero.eyebrow">a family of Claude Code skills</p>
+        <h1 data-i18n="hero.title">The owl over the chain.</h1>
+        <p class="lede" data-i18n="hero.lede">Nine skills turn a codebase, a database schema, prose
+          or a dataset into one self-contained HTML model that carries its own engines. The language
+          model proposes; SPARQL, SWRL, Prolog and DMN decide. <code>/noctua</code> classifies the
+          sources, drives the right lane stage by stage and verifies each product before proposing
+          the next — it never does a stage's work.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#chain" data-i18n="cta.chain">See the chain</a>
+          <a class="btn btn-ghost" href="#start" data-i18n="cta.start">Get started</a>
+        </div>
+        <div class="figures">
+          <div class="figure"><b>78 / 78</b><span data-i18n="fig.acceptance">acceptance suite</span></div>
+          <div class="figure"><b>19</b><span data-i18n="fig.invariants">validator invariants</span></div>
+          <div class="figure"><b>0</b><span data-i18n="fig.network">network dependencies</span></div>
+        </div>
+      </div>
+      <div class="hero-mark" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M6.5 20.5C16 14.5 25 19 32 23.5 39 19 48 14.5 57.5 20.5" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="20" cy="35" r="10.5" fill="none" stroke="currentColor" stroke-width="5.5"/><circle cx="20" cy="35" r="5.4" fill="#C8622B"/><path d="M44 24.5l9.09 5.25v10.5L44 45.5l-9.09-5.25v-10.5z" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linejoin="round"/><path d="M44 29.6l4.68 2.7v5.4L44 40.4l-4.68-2.7v-5.4z" fill="#C8622B"/><path d="M27.8 46.8h8.4L32 56.2z" fill="currentColor"/></svg></div>
+    </div>
+  </section>
+
+  <section class="section" id="chain" aria-labelledby="chain-h">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="chain.eyebrow">the chain map, rendered</p>
+        <h2 id="chain-h" data-i18n="chain.heading">Sources in, artifacts out, a check at every stage.</h2>
+        <p class="lede" data-i18n="chain.lede">This is the routing table <code>/noctua</code> reads,
+          drawn: two rails that converge, and for each stage what it consumes, what it produces, how
+          the orchestrator checks the product and where it stops for a human.</p>
+      </div>
+      <div id="chain-diagram"></div>
+    </div>
+  </section>
+
+  <section class="section" id="stages" aria-labelledby="stages-h">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="stages.eyebrow">nine skills, ten stage rows</p>
+        <h2 id="stages-h" data-i18n="stages.heading">Each skill has one job, stated in its own words.</h2>
+        <p class="lede" data-i18n="stages.lede">Eight of the nine ship in this package; every card below
+          is condensed from that skill's own <code>SKILL.md</code> description, with nothing added.
+          <code>/domain-forge</code> covers two rows of the chain map — it forges a model from prose
+          and it refines any model — which is why ten stages are nine skills.</p>
+      </div>
+
+      <div class="orchestrator">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="o-mark"><path d="M6.5 20.5C16 14.5 25 19 32 23.5 39 19 48 14.5 57.5 20.5" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="20" cy="35" r="10.5" fill="none" stroke="currentColor" stroke-width="5.5"/><circle cx="20" cy="35" r="5.4" fill="#C8622B"/><path d="M44 24.5l9.09 5.25v10.5L44 45.5l-9.09-5.25v-10.5z" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linejoin="round"/><path d="M44 29.6l4.68 2.7v5.4L44 40.4l-4.68-2.7v-5.4z" fill="#C8622B"/><path d="M27.8 46.8h8.4L32 56.2z" fill="currentColor"/></svg>
+        <div>
+          <h3 translate="no">noctua <code class="cmd">/noctua</code></h3>
+          <p data-i18n="orch.body">The orchestrator, above the grid rather than in it, because it is
+            not a stage. It reads a project, classifies its sources, reads the ledger, and drives the
+            right lane stage by stage by invoking the specialist skills, verifying each product
+            before proposing the next. It never does a stage's work — not a little of it, not the
+            easy part.</p>
+          <p class="flags">
+            <code>/noctua &lt;path&gt;</code>
+            <code>--goal &lt;stage&gt;</code>
+            <code>--unattended</code>
+            <code>status</code>
+            <code>--lane &lt;name&gt;</code>
+          </p>
+        </div>
+      </div>
+
+      <div class="skill-grid">
+        <article class="skill">
+          <div class="skill-top">
+            <h3 translate="no">spec-analysis</h3>
+            <code class="cmd">/spec-analysis</code>
+          </div>
+          <p lang="en">Analyze an existing software project, a data project or a database, and explain it back as a read-only HTML report: components and responsibilities, behaviours and business rules, decision logic, the data model and the flows, as connected prose — reading the code but never modifying it.</p>
+          <p class="skill-io" lang="en"><span>codebase / data code / schema</span><span class="io-out"><span class="arrow">&rarr;</span>spec-analysis.html</span></p>
+          <p class="skill-src"><a href="docs/spec-analysis.html"><span data-i18n="skill.source">source</span>: <span lang="en">spec-analysis</span></a></p>
+        </article>
+        <article class="skill">
+          <div class="skill-top">
+            <h3 translate="no">domain-forge</h3>
+            <code class="cmd">/domain-forge</code>
+          </div>
+          <p lang="en">Turn a textual project idea into a visual, language-agnostic domain model in one self-contained HTML file: entities and relationships extracted from prose, made compatible with ontology T-box/A-box, DMN decision tables and Prolog/Horn rules. It owns the model platform — the contract, the engines, the validator and the layer tools.</p>
+          <p class="skill-io" lang="en"><span>prose, or any model to refine</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.domain.html</span></p>
+          <p class="skill-src"><a href="docs/domain-forge.html"><span data-i18n="skill.source">source</span>: <span lang="en">domain-forge</span></a></p>
+        </article>
+        <article class="skill">
+          <div class="skill-top">
+            <h3 translate="no">dataset-forge</h3>
+            <code class="cmd">/dataset-forge</code>
+          </div>
+          <p lang="en">Geometric, neurosymbolic analysis of a tabular dataset: its dimensions, its basis — the minimal set of mutually non-derivable features, every other column expressed as a derivation rule — the dependencies among basis members, and the feature/label partitions they imply, modelled so the engines verify what the model proposes.</p>
+          <p class="skill-io" lang="en"><span>dataset</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.domain.html + geometry</span></p>
+          <p class="skill-src"><a href="docs/dataset-forge.html"><span data-i18n="skill.source">source</span>: <span lang="en">dataset-forge</span></a></p>
+        </article>
+        <article class="skill">
+          <div class="skill-top">
+            <h3 translate="no">data-lens</h3>
+            <code class="cmd">/data-lens</code>
+          </div>
+          <p lang="en">Traditional, best-practice analysis on top of that geometry: quality and missingness mechanisms, distributions and outliers, inference with assumption checks and effect sizes, importance and leakage probes, time series, spatial structure, drift. An observation is a finding only if it changes a downstream decision.</p>
+          <p class="skill-io" lang="en"><span>dataset model (+ dataset)</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.analysis.html + analysis</span></p>
+          <p class="skill-src"><a href="docs/data-lens.html"><span data-i18n="skill.source">source</span>: <span lang="en">data-lens</span></a></p>
+        </article>
+        <article class="skill">
+          <div class="skill-top">
+            <h3 translate="no">dataset-shaper</h3>
+            <code class="cmd">/dataset-shaper</code>
+          </div>
+          <p lang="en">Materialize decisions the analysis already took: compile a declarative, provenance-traced recipe of transformations, execute it deterministically, verify it, and emit the shaped dataset, a manifest, a lineage, a standalone reproduction script and an additive shape layer.</p>
+          <p class="skill-io" lang="en"><span>model with geometry (+ analysis)</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.shaped.html + shaped/</span></p>
+          <p class="skill-src"><a href="docs/dataset-shaper.html"><span data-i18n="skill.source">source</span>: <span lang="en">dataset-shaper</span></a></p>
+        </article>
+        <article class="skill">
+          <div class="skill-top">
+            <h3 translate="no">inferred-questions</h3>
+            <code class="cmd">/inferred-questions</code>
+          </div>
+          <p lang="en">Surface the latent modelling questions in a model — gaps in DMN coverage, edges of OWL restrictions, SWRL antecedents that never bind, multi-typing under disjointness, rationale that names an external system without defining its failure mode. The input file is never modified.</p>
+          <p class="skill-io" lang="en"><span>any model</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.questions.html</span></p>
+          <p class="skill-src"><a href="docs/inferred-questions.html"><span data-i18n="skill.source">source</span>: <span lang="en">inferred-questions</span></a></p>
+        </article>
+        <article class="skill">
+          <div class="skill-top">
+            <h3 translate="no">model-chat</h3>
+            <code class="cmd">/model-chat</code>
+          </div>
+          <p lang="en">Hold an engine-grounded conversation with a model. Every answer is produced by running the model's own engines — SPARQL, the RDFS/SWRL reasoner, Prolog, DMN — never by LLM speculation; when no engine can ground a question, the skill refuses and names the gap.</p>
+          <p class="skill-io" lang="en"><span>any model</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.chat.html</span></p>
+          <p class="skill-src"><a href="docs/model-chat.html"><span data-i18n="skill.source">source</span>: <span lang="en">model-chat</span></a></p>
+        </article>
+        <article class="skill">
+          <div class="skill-top">
+            <h3 translate="no">blueprint</h3>
+            <code class="cmd">/blueprint</code>
+          </div>
+          <p lang="en">First-architecture proposal for a greenfield project: ingest a spec-analysis HTML or a model, derive a proposed architectural style and world model plus ranked design findings, every claim traced to the spec or stamped as a designer's choice. With a dataset model it proposes the pipeline the geometry, analysis and recipe imply.</p>
+          <p class="skill-io" lang="en"><span>prose spec or model</span><span class="io-out"><span class="arrow">&rarr;</span>blueprint-runs/&lt;ts&gt;/</span></p>
+          <p class="skill-src"><a href="docs/blueprint.html"><span data-i18n="skill.source">source</span>: <span lang="en">blueprint</span></a></p>
+        </article>
+        <article class="skill">
+          <div class="skill-top">
+            <h3 translate="no">document-project</h3>
+            <code class="cmd">/document-project</code>
+          <span class="ext" data-i18n="skill.external">external</span>
+          </div>
+          <p lang="en">Not part of this package, and described here only by its row in the chain map: it is the last stage of every lane, it consumes everything above it, it produces LaTeX and a PDF chapter by chapter, and the check the orchestrator runs on it is that the PDF compiles.</p>
+          <p class="skill-io" lang="en"><span>everything above</span><span class="io-out"><span class="arrow">&rarr;</span>LaTeX / PDF</span></p>
+          <p class="skill-src"><a href="docs/document-project.html"><span data-i18n="skill.source">source</span>: <span lang="en">document-project</span></a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="verify" aria-labelledby="verify-h">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="verify.eyebrow">how it verifies</p>
+        <h2 id="verify-h" data-i18n="verify.heading">The engines decide, and the numbers are published.</h2>
+        <p class="lede" data-i18n="verify.lede">A chain of language-model outputs is only worth as much
+          as the checks between its links. These are the checks, and below them the results of the
+          v3 build — including what it did not cover.</p>
+      </div>
+
+      <div class="claims">
+        <div class="claim">
+          <h3 data-i18n="verify.c1.h">One file, no network</h3>
+          <p data-i18n="verify.c1.b">The artifact is one self-contained HTML file with no network
+            dependencies, and the SPARQL, SWRL, Prolog and DMN engines that answer questions about it
+            travel inside it. Open it in a browser five years from now and it still runs.</p>
+        </div>
+        <div class="claim">
+          <h3 data-i18n="verify.c2.h">Every step is reversible</h3>
+          <p data-i18n="verify.c2.b">Each chain skill is a pure function over that file: the input is
+            never modified, the output is a strict superset, and stripping a layer returns the
+            predecessor byte for byte — <code>strip(apply(x)) == x</code>. To revert a step you open
+            the previous file.</p>
+        </div>
+        <div class="claim">
+          <h3 data-i18n="verify.c3.h">Determinism is tested, not declared</h3>
+          <p data-i18n="verify.c3.b">The standalone pandas script the shaper emits is a second
+            implementation of the same recipe. Its outputs have to match the manifest's digests byte
+            for byte, and they do — that is the test, not a promise in a README.</p>
+        </div>
+        <div class="claim">
+          <h3 data-i18n="verify.c4.h">The validator, not the author</h3>
+          <p data-i18n="verify.c4.b"><code>validate_model.py</code> checks invariants 1&ndash;19, of
+            which 13&ndash;16 are the layer-chain invariants that hold the superset property. The
+            orchestrator runs a stage's own check before the lane is allowed to advance; a product
+            that failed never becomes the current artifact.</p>
+        </div>
+        <div class="claim">
+          <h3 data-i18n="verify.c5.h">State on disk, not in a conversation</h3>
+          <p data-i18n="verify.c5.b"><code>.claude/noctua-ledger.md</code> holds the chain state —
+            sources with their digests, lanes, objectives, history. It is deliberately separate from
+            the forges' <code>.claude/domain-forge-memory.md</code>, which records modelling
+            decisions; Noctua reads that file and never writes to it.</p>
+        </div>
+      </div>
+
+      <div class="numbers">
+        <div class="figure"><b>78 / 78</b><span data-i18n="num.acceptance">acceptance suite, 0 failed</span></div>
+        <div class="figure"><b>3 / 3</b><span data-i18n="num.verifiers">static verifiers at SHIP</span></div>
+        <div class="figure"><b>16 / 2 / 0</b><span data-i18n="num.validator">validator: passed / warned / failed</span></div>
+        <div class="figure"><b>13</b><span data-i18n="num.scripts">scripts and assets built</span></div>
+      </div>
+
+      <div class="caveats">
+        <h3 data-i18n="caveats.h">What those numbers do not cover</h3>
+        <ul>
+          <li data-i18n="caveats.1">The two validator warnings were <code>rdflib</code> and a headless
+            browser missing from that sandbox, not defects in the model.</li>
+          <li data-i18n="caveats.2">B7 — the run on the real CIC-IDS2017 folder — was <strong>not</strong>
+            executed, because the dataset was not reachable from that session. The equivalent ran on a
+            synthetic folder of the same shape.</li>
+          <li data-i18n="caveats.3">One failing case, PSI against permutation, turned out to be a wrong
+            test rather than a wrong check; it is documented as a limit in
+            <code>shape-contract.md</code> &sect;3 instead of being quietly removed.</li>
+          <li data-i18n="caveats.4">One static verifier, <code>dataset-shaper</code>, returned REVISE on
+            its first pass and SHIP on the second. The first pass counts.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="start" aria-labelledby="start-h">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="start.eyebrow">get started</p>
+        <h2 id="start-h" data-i18n="start.heading">Nine folders, a Python environment, one command.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <h3 data-i18n="start.s1.h">Install the folders</h3>
+          <p data-i18n="start.s1.b">Copy the package's nine skill folders into your Claude Code skills
+            directory, in place of the v2 ones. <code>effective-java</code> stays as it is — it is
+            blueprint's anchor corpus, an external skill this package does not carry.</p>
+          <p class="chips">
+            <code>domain-forge</code><code>dataset-forge</code><code>model-chat</code>
+            <code>inferred-questions</code><code>spec-analysis</code><code>blueprint</code>
+            <code>noctua</code><code>data-lens</code><code>dataset-shaper</code>
+            <code class="is-external">effective-java</code>
+          </p>
+        </div>
+        <div class="step">
+          <h3 data-i18n="start.s2.h">Have the environment</h3>
+          <p data-i18n="start.s2.b">Python 3.10 or later with <code>rdflib</code>, <code>numpy</code>,
+            <code>pandas</code>, <code>scipy</code> and <code>scikit-learn</code>;
+            <code>pyarrow</code> for parquet, <code>statsmodels</code> for time series,
+            <code>geopandas</code>, <code>pyproj</code> and <code>shapely</code> for spatial work;
+            <code>matplotlib</code> for figures; and a headless Chromium or Chrome on
+            <code>PATH</code> or in <code>$CHROME</code> for the symbolic verification and the smoke
+            tests.</p>
+        </div>
+        <div class="step">
+          <h3 data-i18n="start.s3.h">Run the owl</h3>
+          <code class="run">/noctua</code>
+          <p data-i18n="start.s3.b">On a first run it creates <code>.claude/noctua-ledger.md</code> and
+            says so, checks the environment and reports which lanes that leaves open, classifies the
+            sources it finds, asks once per lane what the lane is <em>for</em> — offering
+            destinations with what each one does <strong>not</strong> give you — then proposes the
+            next stage with the exact invocation, and waits.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sketches" aria-labelledby="sketches-h">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="sketches.eyebrow">specified, not built</p>
+        <h2 id="sketches-h" data-i18n="sketches.heading">Four chain skills are still sketches.</h2>
+        <p class="lede" data-i18n="sketches.lede">The design contract names them and marks their status
+          as <em>sketch</em>. They are listed here with that word, because a roadmap presented as a
+          feature list is the oldest lie on a project page.</p>
+      </div>
+      <div class="sketch-list">
+        <div class="sketch"><code translate="no">/instance-create</code><span data-i18n="sk.instance">A-box individuals against the T-box</span></div>
+        <div class="sketch"><code translate="no">/code-implement</code><span data-i18n="sk.code">target-language source per component</span></div>
+        <div class="sketch"><code translate="no">/countergen</code><span data-i18n="sk.countergen">adversarial inputs probing DMN / SWRL / Horn</span></div>
+        <div class="sketch"><code translate="no">/model-diff</code><span data-i18n="sk.diff">a diff layer against a prior layer or reference</span></div>
+      </div>
+      <p class="lede" data-i18n="sketches.foot"><code>/architect</code> and <code>/improve</code> are
+        built and installed, but Noctua never schedules them on its own initiative: it names them as
+        options when their input exists.</p>
+    </div>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="shell">
+    <div class="foot-grid">
+      <div>
+        <p class="foot-brand" translate="no"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M6.5 20.5C16 14.5 25 19 32 23.5 39 19 48 14.5 57.5 20.5" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="20" cy="35" r="10.5" fill="none" stroke="currentColor" stroke-width="5.5"/><circle cx="20" cy="35" r="5.4" fill="#C8622B"/><path d="M44 24.5l9.09 5.25v10.5L44 45.5l-9.09-5.25v-10.5z" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linejoin="round"/><path d="M44 29.6l4.68 2.7v5.4L44 40.4l-4.68-2.7v-5.4z" fill="#C8622B"/><path d="M27.8 46.8h8.4L32 56.2z" fill="currentColor"/></svg><b>noctua</b></p>
+        <p data-i18n="foot.tagline" style="margin-top:var(--s-3)">A neurosymbolic analysis chain for
+          Claude Code. The owl is <em>Athene noctua</em>, the little owl.</p>
+      </div>
+      <div>
+        <p data-i18n="foot.credit">A Knowledge Engineering project at the
+          <strong>Universit&agrave; di Camerino</strong>, by Samuele &ldquo;Delta&rdquo; Stronati.</p>
+      </div>
+      <div>
+        <ul class="foot-links">
+          <li><a href="noctua-v3_1.zip" download data-i18n="foot.download">Download the package (v3, 897&nbsp;KB)</a></li>
+          <li><a href="noctua-package/CHANGES-v3.md" data-i18n="foot.changes">What v3 changed, and what it verified</a></li>
+          <li><a href="noctua-package/noctua/references/chain-map.md" data-i18n="foot.chainmap">The chain map this page renders</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-note" data-i18n="foot.note">Every factual sentence on this page traces to a file in
+      the package; the trace table is <code>content/SOURCES.md</code> in this repository.</p>
+  </div>
+</footer>
+
+
+<script src="assets/js/chain-data.js"></script>
+<script src="assets/js/chain.js"></script>
+</body>
+</html>

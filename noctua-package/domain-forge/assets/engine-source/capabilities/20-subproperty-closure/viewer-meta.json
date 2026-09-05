@@ -1,0 +1,15 @@
+{
+  "title": "Subproperty closure — RDFS5 transitive subPropertyOf",
+  "description": "If P ⊑ Q and Q ⊑ R, the reasoner derives P ⊑ R. Combined with capability 30-property-characteristics, this means every P(x,y) fact also implies R(x,y). The default KB declares hasMother ⊑ hasParent ⊑ hasAncestor and an asserted hasMother fact — you should see hasParent and hasAncestor inferred.",
+  "focusProvKinds": ["subPropertyOf"],
+  "defaultKB": {
+    "@graph": [
+      {"@id": "ex:Person", "@type": "owl:Class"},
+      {"@id": "ex:hasAncestor", "@type": "owl:ObjectProperty", "rdfs:domain": "ex:Person", "rdfs:range": "ex:Person"},
+      {"@id": "ex:hasParent", "@type": "owl:ObjectProperty", "subPropertyOf": "ex:hasAncestor", "rdfs:domain": "ex:Person", "rdfs:range": "ex:Person"},
+      {"@id": "ex:hasMother", "@type": "owl:ObjectProperty", "subPropertyOf": "ex:hasParent", "rdfs:domain": "ex:Person", "rdfs:range": "ex:Person"},
+      {"@id": "ex:alice", "@type": ["owl:NamedIndividual", "ex:Person"]},
+      {"@id": "ex:bob", "@type": ["owl:NamedIndividual", "ex:Person"], "ex:hasMother": "ex:alice"}
+    ]
+  }
+}

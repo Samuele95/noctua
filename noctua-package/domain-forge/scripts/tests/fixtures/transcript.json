@@ -1,0 +1,14 @@
+{ "turns": [
+  { "q": "Which individuals are typed?",
+    "paradigm": "sparql",
+    "query": "SELECT ?s WHERE { ?s a ?c }",
+    "result": { "vars": ["s"], "rows": [["ex:a"], ["ex:b"], ["ex:c"]] },
+    "answer": "Three individuals carry a type assertion.",
+    "grounded": true },
+  { "q": "Is the moon made of cheese?",
+    "paradigm": "refused",
+    "query": "",
+    "result": null,
+    "answer": "No engine in this model can ground that question.",
+    "grounded": false }
+] }

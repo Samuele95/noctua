@@ -1,0 +1,14 @@
+{
+  "title": "Class membership inheritance — RDFS2",
+  "description": "If x ∈ A and A ⊑ B, then x ∈ B. The default KB types alice as a Father; you should see alice inferred to also be a Parent and a Person via the subClassOf chain. Add another individual or another subclass step to watch membership cascade.",
+  "focusProvKinds": ["subClassOf"],
+  "defaultKB": {
+    "@graph": [
+      {"@id": "ex:Person", "@type": "owl:Class"},
+      {"@id": "ex:Parent", "@type": "owl:Class", "subClassOf": "ex:Person"},
+      {"@id": "ex:Father", "@type": "owl:Class", "subClassOf": "ex:Parent"},
+      {"@id": "ex:alice", "@type": ["owl:NamedIndividual", "ex:Father"]},
+      {"@id": "ex:bob",   "@type": ["owl:NamedIndividual", "ex:Person"]}
+    ]
+  }
+}

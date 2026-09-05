@@ -1,0 +1,7 @@
+{
+  "id": "40-swrl-forward-chain",
+  "title": "Swrl forward chain",
+  "exports": [
+    "inferSWRL"
+  ]
+}

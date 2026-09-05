@@ -1,0 +1,134 @@
+/* The sections after the chain: the stages grid, how it verifies, get started,
+   the sketches, the footer. */
+
+.section { padding-block: var(--s-9); border-top: 1px solid var(--line-soft); }
+.section-head .lede { font-size: var(--t-base); }
+
+/* ── the orchestrator, above the grid ───────────────────────────────── */
+.orchestrator {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-5);
+  align-items: start;
+  background: var(--surface); border: 1px solid var(--accent);
+  border-radius: var(--radius); padding: var(--s-5) var(--s-6); margin-bottom: var(--s-6);
+}
+.orchestrator .o-mark { width: 52px; height: 52px; color: var(--text); }
+.orchestrator h3 { font-size: var(--t-lg); margin-bottom: var(--s-1); }
+.orchestrator .cmd { font-family: var(--font-mono); font-size: var(--t-sm);
+                     color: var(--accent-text); }
+.orchestrator p { font-size: var(--t-sm); color: var(--text-dim); max-width: 78ch;
+                  margin-top: var(--s-3); }
+.orchestrator .flags { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-4); }
+.orchestrator .flags code {
+  border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 2px var(--s-2);
+  font-size: var(--t-xs); color: var(--text-dim); background: var(--bg);
+}
+
+/* ── the nine ───────────────────────────────────────────────────────── */
+.skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(292px, 1fr));
+              gap: var(--s-4); }
+.skill {
+  display: flex; flex-direction: column; gap: var(--s-3);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: var(--s-5);
+  transition: border-color .16s var(--ease);
+}
+.skill:hover { border-color: var(--text-dim); }
+.skill-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--s-2) var(--s-3); }
+.skill h3 { font-size: var(--t-md); }
+.skill .cmd { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--accent-text); }
+.skill .ext {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--second); border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px;
+}
+.skill p { font-size: var(--t-sm); color: var(--text-dim); flex: 1; }
+.skill-io {
+  display: flex; flex-direction: column; gap: 3px;
+  padding-top: var(--s-3); border-top: 1px solid var(--line-soft);
+  font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+}
+.skill-io .io-out { display: flex; gap: var(--s-2); }
+.skill-io .arrow { color: var(--accent-text); flex: none; }
+.skill-src { font-size: var(--t-xs); }
+.skill-src a { color: var(--text-dim); text-decoration-color: var(--line); }
+.skill-src a:hover { color: var(--text); }
+
+/* ── how it verifies ────────────────────────────────────────────────── */
+.claims { display: grid; grid-template-columns: repeat(auto-fit, minmax(322px, 1fr));
+          gap: var(--s-5) var(--s-6); margin-bottom: var(--s-7); }
+.claim { display: flex; flex-direction: column; gap: var(--s-2); }
+.claim h3 { font-size: var(--t-base); font-family: var(--font-text); font-weight: 600;
+            letter-spacing: 0; line-height: 1.4; }
+.claim p { font-size: var(--t-sm); color: var(--text-dim); }
+.claim code { color: var(--text); }
+
+.numbers {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--s-5); padding: var(--s-6);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.numbers .figure b { font-size: var(--t-2xl); }
+.numbers .figure span { font-size: var(--t-sm); }
+
+.caveats {
+  margin-top: var(--s-5); padding: var(--s-5) var(--s-6);
+  border: 1px dashed var(--line); border-radius: var(--radius);
+}
+.caveats h3 { font-family: var(--font-text); font-size: var(--t-sm); font-weight: 600;
+              letter-spacing: 0; margin-bottom: var(--s-3); }
+.caveats ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: var(--s-2); }
+.caveats li { font-size: var(--t-sm); color: var(--text-dim); }
+.caveats code { color: var(--text); }
+
+/* ── get started ────────────────────────────────────────────────────── */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(292px, 1fr));
+         gap: var(--s-6); counter-reset: step; }
+.step { display: flex; flex-direction: column; gap: var(--s-3); }
+.step h3 { display: flex; align-items: center; gap: var(--s-3); font-size: var(--t-md); }
+.step h3::before {
+  counter-increment: step; content: counter(step);
+  width: 26px; height: 26px; flex: none; display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent-text); border-radius: var(--radius-sm);
+  font-family: var(--font-mono); font-size: var(--t-xs);
+}
+.step p { font-size: var(--t-sm); color: var(--text-dim); }
+.chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.chips code {
+  border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 3px var(--s-2);
+  font-size: var(--t-xs); background: var(--surface);
+}
+.chips code.is-external { border-style: dashed; color: var(--text-dim); }
+.run {
+  display: block; background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: var(--s-3) var(--s-4);
+  font-family: var(--font-mono); font-size: var(--t-sm); color: var(--accent-text);
+}
+
+/* ── sketches ───────────────────────────────────────────────────────── */
+.sketch-list { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-bottom: var(--s-5); }
+.sketch {
+  display: flex; flex-direction: column; gap: 3px;
+  border: 1px dashed var(--line); border-radius: var(--radius-sm);
+  padding: var(--s-3) var(--s-4); flex: 1 1 232px;
+}
+.sketch code { color: var(--text); font-size: var(--t-sm); }
+.sketch span { font-size: var(--t-xs); color: var(--text-dim); }
+
+/* ── footer ─────────────────────────────────────────────────────────── */
+.site-foot { border-top: 1px solid var(--line); padding-block: var(--s-7) var(--s-8); }
+.foot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+             gap: var(--s-6); align-items: start; }
+.foot-brand { display: flex; align-items: center; gap: var(--s-3); }
+.foot-brand svg { width: 34px; height: 34px; }
+.foot-brand b { font-family: var(--font-display); font-weight: 500; font-size: var(--t-md);
+                letter-spacing: -0.04em; }
+.site-foot p, .site-foot li { font-size: var(--t-sm); color: var(--text-dim); }
+.foot-links { list-style: none; padding: 0; display: flex; flex-direction: column; gap: var(--s-2); }
+.foot-links a { text-decoration-color: var(--line); }
+.foot-links a:hover { color: var(--text); }
+.foot-note { margin-top: var(--s-6); padding-top: var(--s-5); border-top: 1px solid var(--line-soft);
+             font-size: var(--t-xs); }
+
+@media (max-width: 700px) {
+  .section { padding-block: var(--s-7); }
+  .orchestrator { grid-template-columns: 1fr; gap: var(--s-4); padding: var(--s-5); }
+}

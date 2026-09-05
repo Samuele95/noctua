@@ -1,0 +1,304 @@
+{
+  "$comment": "Transcribed from noctua-package/noctua/references/chain-map.md (Noctua v3, 2026-09-03). Every field is a quotation or a faithful compression of that table. Do not add information that is not in the source.",
+  "source": "noctua-package/noctua/references/chain-map.md",
+  "packageVersion": "v3 (2026-09-03)",
+
+  "orchestrator": {
+    "id": "noctua",
+    "command": "/noctua",
+    "role": "the owl over the chain",
+    "source": "noctua-package/noctua/SKILL.md",
+    "rule": "You never do a stage's work. The orchestrator reads the project, classifies its sources, reads the ledger, proposes the next stage with its reason, invokes the stage's skill, checks the product against the chain map, records it, and stops where a human is needed.",
+    "state": ".claude/noctua-ledger.md",
+    "arguments": [
+      { "flag": "/noctua", "does": "read the project at the cwd, classify, report state, propose the next stage, wait" },
+      { "flag": "/noctua <path>", "does": "same, for a file or directory (a dataset, a model HTML, a codebase root)" },
+      { "flag": "--goal <stage>", "does": "run stage after stage until that stage's product exists and verifies, stopping only at human gates" },
+      { "flag": "--unattended", "does": "no user present: each stage runs with the flag its unattended column names; abstentions are recorded under Open" },
+      { "flag": "status", "does": "print the ledger's Lanes and Open and stop" },
+      { "flag": "--lane <name>", "does": "restrict to one lane when a project has several" }
+    ]
+  },
+
+  "sourceKinds": [
+    {
+      "id": "codebase",
+      "recognisedBy": "source files with an entry point (build manifest, main, server bootstrap) and no dataset",
+      "firstStage": "spec"
+    },
+    {
+      "id": "data-project",
+      "recognisedBy": "notebooks, ETL / pipeline code, DAG definitions, SQL migrations alongside data files",
+      "firstStage": "spec (--kind data-project) for the code, and forge-data for each dataset"
+    },
+    {
+      "id": "database",
+      "recognisedBy": "DDL / schema files, ORM models, migrations, or a connection string the user gives",
+      "firstStage": "spec (--kind database)"
+    },
+    {
+      "id": "prose",
+      "recognisedBy": ".md / .txt notes, an idea typed by the user, an existing spec-analysis*.html",
+      "firstStage": "forge-prose"
+    },
+    {
+      "id": "dataset",
+      "recognisedBy": ".csv .tsv .parquet .xlsx .json .jsonl with tabular content",
+      "firstStage": "forge-data"
+    },
+    {
+      "id": "model",
+      "recognisedBy": "an HTML with <script id=\"domain-model\" type=\"text/turtle\">; its ex:sourceKind and its layers say where it is in a lane",
+      "firstStage": "the next stage its layers imply"
+    },
+    {
+      "id": "blueprint",
+      "recognisedBy": "a blueprint-runs/<ts>/ directory with blueprint.md + findings.json",
+      "firstStage": "architect once code exists, or document"
+    }
+  ],
+
+  "stages": [
+    {
+      "id": "spec",
+      "label": "spec",
+      "skill": "spec-analysis",
+      "command": "/spec-analysis",
+      "external": false,
+      "invocation": "/spec-analysis [path] [--kind codebase|data-project|database] [--out …]",
+      "consumes": "codebase / data code / schema",
+      "produces": "spec-analysis.html (prose; no formal model)",
+      "check": "file exists, self-contained (no external refs), the return summary carries a module map and one traced flow",
+      "gate": "none (one clarifying question only on an ambiguous monorepo)",
+      "unattended": "--unattended: the largest coherent root is analysed and the choice stated",
+      "rerun": "invoke again with a tighter scope",
+      "lanes": ["codebase", "database", "data-project"]
+    },
+    {
+      "id": "forge-prose",
+      "label": "forge (prose)",
+      "skill": "domain-forge",
+      "command": "/domain-forge",
+      "external": false,
+      "invocation": "/domain-forge <spec-analysis.html | notes> [--layers …]",
+      "consumes": "prose",
+      "produces": "<stem>.domain.html",
+      "check": "validate_model.py exit 0",
+      "gate": "findings opt-in, architectural-depth confirmations",
+      "unattended": "not run (announced as pending — the apply phase is an opt-in gate; --report-only produces no model)",
+      "rerun": "pass the model path (refine)",
+      "lanes": ["codebase", "prose", "database"]
+    },
+    {
+      "id": "forge-data",
+      "label": "forge (dataset)",
+      "skill": "dataset-forge",
+      "command": "/dataset-forge",
+      "external": false,
+      "invocation": "/dataset-forge <dataset> [--partition …]",
+      "consumes": "dataset",
+      "produces": "<stem>.domain.html with geometry layer, memory § Dataset stances",
+      "check": "validate_model.py exit 0 (13–16), smoke_geometry.py",
+      "gate": "FORK: on ≥ 2 label candidates",
+      "unattended": "--unattended: partition provenance: abstained, ranked candidates",
+      "rerun": "pass the model path (refine)",
+      "lanes": ["dataset", "data-project"]
+    },
+    {
+      "id": "refine",
+      "label": "refine",
+      "skill": "domain-forge",
+      "command": "/domain-forge",
+      "external": false,
+      "invocation": "/domain-forge <model.html>",
+      "consumes": "any model",
+      "produces": "<stem>.refined.html (layers stripped-and-regenerated or --restamp)",
+      "check": "validate_model.py exit 0, invariant 14 not failing",
+      "gate": "findings opt-in",
+      "unattended": "not run (announced as pending)",
+      "rerun": "pass the model path",
+      "lanes": ["any"]
+    },
+    {
+      "id": "lens",
+      "label": "lens",
+      "skill": "data-lens",
+      "command": "/data-lens",
+      "external": false,
+      "invocation": "/data-lens <model.html> [--dataset …]",
+      "consumes": "dataset model (+ dataset)",
+      "produces": "<stem>.analysis.html with analysis layer; memory § Analysis stances",
+      "check": "validate_model.py exit 0, smoke_analysis.py; handoff.shaper_candidates present (may be empty)",
+      "gate": "step-2 FORK:s, then the dialogue loop (user-ended)",
+      "unattended": "--unattended (+ --questions <file> if supplied): forks become open questions in markers, automatic pass only",
+      "rerun": "--continue",
+      "lanes": ["dataset", "data-project"]
+    },
+    {
+      "id": "shape",
+      "label": "shape",
+      "skill": "dataset-shaper",
+      "command": "/dataset-shaper",
+      "external": false,
+      "invocation": "/dataset-shaper <model.html> [--goal …] [--target …]",
+      "consumes": "model with geometry (+ analysis)",
+      "produces": "<stem>.shaped.html with shape layer; shaped/ dataset + recipe.json + manifest.json + lineage.json + reproduce_*.py; memory § Shaping stances",
+      "check": "validate_model.py exit 0, shape.py --check determinism pass, verify_shape.py structural pass",
+      "gate": "one FORK: per phase, batching that phase's steps with alternatives",
+      "unattended": "--unattended: defaults applied and marked; CRS-less spatial steps skipped",
+      "rerun": "--recipe <edited recipe.json> (a fork answered later comes back this way)",
+      "lanes": ["dataset", "data-project"]
+    },
+    {
+      "id": "questions",
+      "label": "questions",
+      "skill": "inferred-questions",
+      "command": "/inferred-questions",
+      "external": false,
+      "invocation": "/inferred-questions <model.html>",
+      "consumes": "any model",
+      "produces": "<stem>.questions.html",
+      "check": "validate_model.py exit 0",
+      "gate": "none (status chips are set by the user in the page)",
+      "unattended": "runs as is",
+      "rerun": "--regenerate",
+      "lanes": ["any"],
+      "optional": true
+    },
+    {
+      "id": "chat",
+      "label": "chat",
+      "skill": "model-chat",
+      "command": "/model-chat",
+      "external": false,
+      "invocation": "/model-chat <model.html>",
+      "consumes": "any model",
+      "produces": "<stem>.chat.html",
+      "check": "validate_model.py exit 0",
+      "gate": "the session loop (user-ended)",
+      "unattended": "--questions <file> only; otherwise not run",
+      "rerun": "--continue",
+      "lanes": ["any"],
+      "optional": true
+    },
+    {
+      "id": "blueprint",
+      "label": "blueprint",
+      "skill": "blueprint",
+      "command": "/blueprint",
+      "external": false,
+      "invocation": "/blueprint <spec-analysis.html | model.html> [--mode pipeline|system]",
+      "consumes": "prose spec or model (software or dataset)",
+      "produces": "blueprint-runs/<ts>/{blueprint.md, findings.json, blueprint.html}",
+      "check": "the three files exist; summary reports trace and anchor integrity PASS",
+      "gate": "structural bets, one per turn",
+      "unattended": "--report-only (gates auto-resolved and stamped)",
+      "rerun": "invoke again with --concern or a new input",
+      "lanes": ["codebase", "prose", "database", "dataset", "data-project"]
+    },
+    {
+      "id": "document",
+      "label": "document",
+      "skill": "document-project",
+      "command": "/document-project",
+      "external": true,
+      "externalNote": "not part of this package; described here only by its chain-map row",
+      "invocation": "/document-project",
+      "consumes": "everything above",
+      "produces": "LaTeX / PDF",
+      "check": "PDF compiles",
+      "gate": "chapter-by-chapter",
+      "unattended": "not run (announced as pending)",
+      "rerun": "chapter by chapter",
+      "lanes": ["codebase", "prose", "database", "dataset", "data-project"]
+    }
+  ],
+
+  "notScheduled": {
+    "note": "architect, improve and the sketched chain skills (instance-create, code-implement, countergen, model-diff) are not stages Noctua schedules: they are named in the summary as options when their input exists and the skill is installed, never invoked on its own initiative.",
+    "skills": ["architect", "improve", "instance-create", "code-implement", "countergen", "model-diff"]
+  },
+
+  "lanes": [
+    {
+      "id": "codebase",
+      "label": "codebase",
+      "sequence": ["spec", "forge-prose", "blueprint", "document"],
+      "blueprintMode": "system",
+      "optionalAfter": { "forge-prose": ["questions", "chat"] }
+    },
+    {
+      "id": "prose",
+      "label": "prose",
+      "sequence": ["forge-prose", "blueprint", "document"],
+      "blueprintMode": "system",
+      "optionalAfter": { "forge-prose": ["questions", "chat"] }
+    },
+    {
+      "id": "database",
+      "label": "database",
+      "sequence": ["spec", "forge-prose", "blueprint", "document"],
+      "blueprintMode": "system",
+      "note": "spec runs with --kind database; the rest is the codebase lane",
+      "optionalAfter": { "forge-prose": ["questions", "chat"] }
+    },
+    {
+      "id": "dataset",
+      "label": "dataset",
+      "sequence": ["forge-data", "lens", "shape", "blueprint", "document"],
+      "blueprintMode": "pipeline",
+      "optionalAfter": { "forge-data": ["questions", "chat"] }
+    },
+    {
+      "id": "data-project",
+      "label": "data project",
+      "sequence": ["spec", "forge-data", "lens", "shape", "blueprint", "document"],
+      "blueprintMode": "pipeline",
+      "note": "two lanes that meet: spec (--kind data-project) on the code and forge-data on each dataset, both feeding blueprint --mode pipeline",
+      "converging": true
+    },
+    {
+      "id": "model",
+      "label": "existing model",
+      "sequence": [],
+      "note": "read its layers, then join the first stage of its lane whose product is missing"
+    }
+  ],
+
+  "optionalStages": {
+    "note": "questions and chat are optional stages on every lane: Noctua proposes questions after a forge when the model has rule layers or a rationale with named external systems, and never schedules chat on its own — it names it.",
+    "stages": ["questions", "chat"]
+  },
+
+  "modelPositions": [
+    { "found": "ex:sourceKind \"dataset\", no layers", "lane": "dataset", "next": "forge-data refine (/dataset-forge <model>) to regenerate geometry; lens --standalone only if the user says geometry is not wanted" },
+    { "found": "geometry", "lane": "dataset", "next": "lens" },
+    { "found": "geometry + analysis", "lane": "dataset", "next": "shape" },
+    { "found": "geometry + analysis + shape", "lane": "dataset", "next": "blueprint --mode pipeline" },
+    { "found": "geometry + shape (no analysis)", "lane": "dataset", "next": "blueprint --mode pipeline (Noctua notes that lens was skipped)" },
+    { "found": "software model, no layers", "lane": "software", "next": "questions (proposed) or blueprint --mode system" },
+    { "found": "any model + open-questions with open rows", "lane": "any", "next": "refine (the questions are the refine's brief) or chat" },
+    { "found": "any model + chat", "lane": "any", "next": "whatever the lane says next; the chat is context, not a stage" }
+  ],
+
+  "destinations": [
+    { "want": "to know where the project stands", "goalStage": "none (status)", "runs": "nothing", "doesNotGive": "any new artifact" },
+    { "want": "to understand a dataset before deciding anything", "goalStage": "lens", "runs": "forge-data → lens", "doesNotGive": "transformed data, an architecture" },
+    { "want": "a cleaned / training-ready dataset", "goalStage": "shape", "runs": "… → lens → shape", "doesNotGive": "a trained model, a pipeline to run it in" },
+    { "want": "the data / ML pipeline architecture", "goalStage": "blueprint --mode pipeline", "runs": "… → shape → blueprint", "doesNotGive": "code, a deployment" },
+    { "want": "to understand an existing codebase", "goalStage": "spec", "runs": "spec", "doesNotGive": "a formal model, a refactor" },
+    { "want": "a queryable domain model", "goalStage": "forge-prose", "runs": "spec → forge-prose", "doesNotGive": "an architecture" },
+    { "want": "an answer to one specific question, now", "goalStage": "none — /model-chat or the lens dialogue", "runs": "one loop, no lane advance", "doesNotGive": "any lane progress (nothing is recorded as a stage)" },
+    { "want": "the open questions a model leaves", "goalStage": "questions", "runs": "questions on the current model", "doesNotGive": "answers" },
+    { "want": "book-quality documentation", "goalStage": "document", "runs": "everything above, then document", "doesNotGive": "anything the earlier stages did not settle" }
+  ],
+
+  "namingRule": "Stems follow the chain's append rule: orders.csv → orders.domain.html → orders.domain.analysis.html → orders.domain.analysis.shaped.html; a user-chosen --out is recorded in the ledger and routing reads the file's layers, never its name.",
+
+  "prerequisites": [
+    { "scope": "every stage", "needs": "the consuming skill is installed and its scripts exist (env_check.py --env); domain-forge for any stage that reads or writes a model; effective-java (an external skill, not part of this package) for blueprint" },
+    { "scope": "forge-data, lens, shape", "needs": "Python 3 with pandas, numpy; scipy/scikit-learn for lens and shape; geopandas + pyproj only when context.spatial is non-empty; a headless Chromium for symbolic verification and smoke tests" },
+    { "scope": "blueprint", "needs": "the effective-java skill for the anchor corpus" },
+    { "scope": "document", "needs": "a LaTeX toolchain" }
+  ]
+}

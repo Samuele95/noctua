@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "categories": ["missing-individuals", "dmn-coverage"],
+  "questions": [
+    { "id": "q-1", "source": "ex:Order", "source_kind": "iri",
+      "category": "missing-individuals", "severity": "low",
+      "question": "Are there representative Order individuals?",
+      "suggested_next": "Run /instance-create.", "engine_check": null, "status": "open" },
+    { "id": "q-2", "source": "riskDecision", "source_kind": "dmn-decision",
+      "category": "dmn-coverage", "severity": "medium",
+      "question": "What happens for amounts outside every interval?",
+      "suggested_next": "Add a catch-all rule.", "engine_check": null, "status": "open" }
+  ]
+}

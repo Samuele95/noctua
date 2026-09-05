@@ -1,0 +1,12 @@
+{
+  "title": "Core — state, seeding, fixpoint orchestrator",
+  "description": "The reasoner's R state object, the assert/infer helpers every capability uses, and the runReasoner() loop that calls each capability once per iteration until nothing changes. With a minimal KB you can see the seeded asserted facts but no inferences — those need the other capabilities.",
+  "focusProvKinds": [],
+  "defaultKB": {
+    "@graph": [
+      {"@id": "ex:Person", "@type": "owl:Class"},
+      {"@id": "ex:hasName", "@type": "owl:DatatypeProperty", "rdfs:domain": "ex:Person", "rdfs:range": "xsd:string"},
+      {"@id": "ex:alice", "@type": ["owl:NamedIndividual", "ex:Person"], "ex:hasName": "Alice"}
+    ]
+  }
+}

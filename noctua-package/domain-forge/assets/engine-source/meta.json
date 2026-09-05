@@ -1,0 +1,60 @@
+{
+  "version": "1.0",
+  "description": "domain-forge inference engine \u2014 per-capability source",
+  "capabilities": [
+    {
+      "id": "00-core",
+      "title": "Core",
+      "exports": [
+        "initReasonerState",
+        "seedAssertedFacts",
+        "runReasoner"
+      ]
+    },
+    {
+      "id": "10-subclass-closure",
+      "title": "Subclass closure",
+      "exports": [
+        "inferSubClassClosure"
+      ]
+    },
+    {
+      "id": "15-class-membership-inheritance",
+      "title": "Class membership inheritance",
+      "exports": [
+        "inferClassMembershipInheritance"
+      ]
+    },
+    {
+      "id": "20-subproperty-closure",
+      "title": "Subproperty closure",
+      "exports": [
+        "inferSubPropertyClosure"
+      ]
+    },
+    {
+      "id": "30-property-characteristics",
+      "title": "Property characteristics",
+      "exports": [
+        "inferPropertyCharacteristics",
+        "matchAntecedent",
+        "unify",
+        "matchAtom"
+      ]
+    },
+    {
+      "id": "40-swrl-forward-chain",
+      "title": "Swrl forward chain",
+      "exports": [
+        "inferSWRL"
+      ]
+    },
+    {
+      "id": "50-consistency",
+      "title": "Consistency",
+      "exports": [
+        "detectContradictions"
+      ]
+    }
+  ]
+}

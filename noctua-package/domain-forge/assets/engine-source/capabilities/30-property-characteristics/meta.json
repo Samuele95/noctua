@@ -1,0 +1,10 @@
+{
+  "id": "30-property-characteristics",
+  "title": "Property characteristics",
+  "exports": [
+    "inferPropertyCharacteristics",
+    "matchAntecedent",
+    "unify",
+    "matchAtom"
+  ]
+}

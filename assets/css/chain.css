@@ -1,0 +1,131 @@
+/* The chain diagram — a rendering of noctua/references/chain-map.md and nothing more.
+   Two rails that converge: the software lanes finish at forge-prose, the data lane at
+   shape, and both hand the same join column its input. Every value in a stage card is
+   a column of that table. */
+
+.chain { display: flex; flex-direction: column; gap: var(--s-5); }
+
+.chain-grid {
+  display: grid;
+  grid-template-columns: minmax(132px, 172px) repeat(3, minmax(0, 1fr)) minmax(152px, 200px);
+  gap: var(--s-4) var(--s-5);
+  align-items: start;
+}
+
+/* ── source chips ───────────────────────────────────────────────────── */
+.rail-sources { display: flex; flex-direction: column; gap: var(--s-2); justify-content: center;
+                align-self: center; }
+.rail-label {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--text-dim); margin-bottom: var(--s-1);
+}
+.src {
+  text-align: left; background: transparent; border: 1px dashed var(--line);
+  border-radius: var(--radius-sm); padding: 5px var(--s-3);
+  font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+  cursor: pointer; transition: color .16s var(--ease), border-color .16s var(--ease);
+}
+.src:hover, .src:focus-visible { color: var(--accent-text); border-color: var(--accent-text); }
+
+/* ── stage chips ────────────────────────────────────────────────────── */
+.stage {
+  position: relative; width: 100%; min-height: 74px;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  gap: 3px; text-align: left; cursor: pointer;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: var(--s-3) var(--s-4);
+  transition: border-color .16s var(--ease), background .16s var(--ease), opacity .16s var(--ease);
+}
+.stage:hover { border-color: var(--accent); }
+.stage[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.stage .s-name { font-family: var(--font-display); font-size: var(--t-md); font-weight: 500;
+                 letter-spacing: -0.03em; line-height: 1.1; }
+.stage .s-skill { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); }
+.stage .s-tag {
+  margin-top: 3px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--second); border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px;
+}
+.stage.is-off { opacity: .3; }
+
+/* arrow into the next cell of the same rail */
+.cell { position: relative; display: flex; align-self: center; }
+.cell.has-next::after {
+  content: ""; position: absolute; right: calc(var(--s-5) * -1); top: 50%;
+  width: var(--s-5); height: 1px; background: var(--line);
+}
+.cell.has-next::before {
+  content: ""; position: absolute; right: calc(var(--s-5) * -1 + 1px); top: 50%;
+  translate: 0 -3px; border: 3.5px solid transparent; border-left-color: var(--line);
+  z-index: 1;
+}
+
+/* the join column: blueprint + document, fed by both rails */
+.join {
+  grid-column: 5; grid-row: 1 / span 2;
+  display: flex; flex-direction: column; gap: var(--s-3);
+  padding-left: var(--s-5); border-left: 1px solid var(--line); position: relative;
+}
+.join::before {
+  content: ""; position: absolute; left: -4px; top: 50%; translate: 0 -50%;
+  border: 4px solid transparent; border-left-color: var(--line); rotate: 180deg;
+}
+.join-note {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-dim);
+}
+
+/* ── optional stages ────────────────────────────────────────────────── */
+.optional {
+  display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-3);
+  padding-top: var(--s-4); border-top: 1px dashed var(--line-soft);
+}
+.optional .rail-label { margin: 0; }
+.optional .stage { min-height: 0; width: auto; flex-direction: row; align-items: baseline;
+                   gap: var(--s-2); padding: var(--s-2) var(--s-3); }
+.optional .stage .s-name { font-size: var(--t-base); }
+
+/* ── detail panel ───────────────────────────────────────────────────── */
+.chain-detail {
+  background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: var(--s-5);
+  min-height: 188px;
+}
+.detail-idle { color: var(--text-dim); font-size: var(--t-sm); max-width: var(--measure); }
+.detail-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-3);
+               margin-bottom: var(--s-4); }
+.detail-head h3 { font-size: var(--t-lg); }
+.detail-head .inv {
+  font-family: var(--font-mono); font-size: var(--t-xs); color: var(--accent-text);
+  background: var(--accent-soft); border-radius: var(--radius-sm); padding: 3px var(--s-2);
+}
+.detail-head .ext {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--second); border: 1px solid var(--line); border-radius: 999px; padding: 2px var(--s-2);
+}
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
+               gap: var(--s-4) var(--s-6); }
+.detail-pair { min-width: 0; }
+.detail-grid dt {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .11em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 3px;
+}
+.detail-grid dd { margin: 0; font-size: var(--t-sm); line-height: 1.5; }
+
+.chain-foot { font-size: var(--t-xs); color: var(--text-dim); }
+.chain-foot code { color: var(--text); }
+
+/* ── mobile: one column, rails become vertical lists ────────────────── */
+@media (max-width: 900px) {
+  .chain-grid { grid-template-columns: 1fr; gap: var(--s-3); }
+  .rail-sources { flex-direction: row; flex-wrap: wrap; align-items: center;
+                  justify-content: flex-start; gap: var(--s-2); }
+  .rail-sources .rail-label { flex: 1 0 100%; margin: 0; }
+  .cell.has-next::after, .cell.has-next::before { display: none; }
+  .join { grid-column: 1; grid-row: auto; padding-left: 0; padding-top: var(--s-4);
+          border-left: 0; border-top: 1px solid var(--line); }
+  .join::before { display: none; }
+  .stage { min-height: 0; }
+  .cell { align-self: stretch; }
+  .detail-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Consistency — disjointWith, Functional, InverseFunctional",
+  "description": "Post-fixpoint pass that catches contradictions positive forward chaining can't. Detects (1) an individual in two owl:disjointWith classes, (2) a class inheriting from two disjoint parents (transitively), (3) Functional property with multiple distinct values per subject, (4) InverseFunctional with multiple distinct subjects per object. The default KB declares Man disjointWith Woman and adds an individual typed as both — you should see a contradictions panel at the top of the results pane.",
+  "focusProvKinds": [],
+  "defaultKB": {
+    "@graph": [
+      {"@id": "ex:Person", "@type": "owl:Class"},
+      {"@id": "ex:Man",    "@type": "owl:Class", "subClassOf": "ex:Person", "disjointWith": "ex:Woman"},
+      {"@id": "ex:Woman",  "@type": "owl:Class", "subClassOf": "ex:Person"},
+      {"@id": "ex:hasContactEmail", "@type": "owl:DatatypeProperty", "characteristics": ["Functional"], "rdfs:domain": "ex:Person", "rdfs:range": "xsd:string"},
+      {"@id": "ex:alice",   "@type": ["owl:NamedIndividual", "ex:Woman"], "ex:hasContactEmail": "alice@example.org"},
+      {"@id": "ex:trouble", "@type": ["owl:NamedIndividual", "ex:Man", "ex:Woman"]},
+      {"@id": "ex:bob",     "@type": ["owl:NamedIndividual", "ex:Man"], "ex:hasContactEmail": ["bob@example.org", "robert@example.org"]}
+    ]
+  }
+}
