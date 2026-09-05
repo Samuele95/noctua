@@ -74,6 +74,20 @@ npm i -D playwright-core
 
 Screenshots land in `screenshots/`, which is git-ignored — it is 39 MB of build output.
 
+## CI
+
+[`.github/workflows/checks.yml`](.github/workflows/checks.yml) runs on every push and pull
+request. It does **not** deploy — Pages publishes the branch directly. What it guards is the
+property that makes that safe: it regenerates everything deterministic and fails if the working
+tree moved, so a generated file cannot quietly stop matching its source. Then it runs the same
+checks a working session runs by hand: the dictionaries, the links, the HTML, the diagram's
+keyboard behaviour, and a screenshot pass that fails on console errors, horizontal overflow,
+any response ≥ 400 and any external request.
+
+The brand exports are deliberately outside the drift check: they are PNG and ICO, and two
+librsvg or Chrome versions do not produce identical bytes. Their source is one SVG, and
+`tools/build_brand.py` is the only thing that ever writes them.
+
 ## Design notes
 
 [`brand/BRAND.md`](brand/BRAND.md) is one page: the idea behind the mark, the palette with

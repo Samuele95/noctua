@@ -1,10 +1,15 @@
 /* Proves the chain diagram is usable without a mouse, and that hovering a source really
    narrows the lanes. Run after any change to chain.js or chain.css. */
 const { chromium } = require("playwright-core");
+const fs = require("fs");
+// the CI runner and this machine keep Chrome in different places
+const CHROME = process.env.CHROME ||
+  ["/usr/bin/google-chrome", "/usr/bin/google-chrome-stable", "/usr/bin/chromium",
+   "/usr/bin/chromium-browser", "/snap/bin/chromium"].find((p) => fs.existsSync(p));
 const path = require("path");
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: "/usr/bin/google-chrome" });
+  const browser = await chromium.launch({ executablePath: CHROME });
   const results = [];
   const fail = (m) => { results.push("FAIL " + m); };
   const ok = (m) => { results.push("ok   " + m); };

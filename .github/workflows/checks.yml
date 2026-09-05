@@ -1,0 +1,80 @@
+name: checks
+
+# This workflow does not deploy. Pages publishes the branch directly, because every
+# generated file is committed — which is exactly the property that needs guarding: if a
+# generator's output can drift from its source, the site can quietly stop being what the
+# repository says it is. So this job regenerates everything deterministic and fails if the
+# working tree moved, then runs the same checks a session runs by hand.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # build_sitemap.py reads each page's last commit date
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+
+      - name: Find Chrome
+        run: |
+          for c in /usr/bin/google-chrome /usr/bin/google-chrome-stable /usr/bin/chromium; do
+            [ -x "$c" ] && echo "CHROME=$c" >> "$GITHUB_ENV" && exec echo "using $c"
+          done
+          echo "::error::no Chrome on this runner; the browser checks cannot run" && exit 1
+
+      - run: npm i --no-save playwright-core
+
+      # ── the invariant this repo rests on ────────────────────────────────────
+      - name: Generated files match their sources
+        run: |
+          python3 tools/build_chain_data.py
+          python3 tools/build_i18n.py
+          python3 tools/stamp_origin.py          # runs build_docs.py and build_404.py
+          python3 tools/build_sitemap.py "$(python3 -c 'import json;print(json.load(open("content/site.json"))["origin"])')"
+          if ! git diff --exit-code; then
+            echo "::error::a generated file differs from what its source produces — re-run the generators and commit the output"
+            exit 1
+          fi
+      # brand exports are deliberately not regenerated here: they are PNG and ICO, and two
+      # librsvg or Chrome versions do not produce the same bytes. Their source is one SVG,
+      # and tools/build_brand.py is the only way they are ever written.
+
+      - name: Dictionaries complete, no hardcoded string
+        run: python3 tools/check_i18n.py
+
+      - name: Every link resolves
+        run: python3 tools/check_links.py
+
+      - name: HTML valid
+        run: npx --yes htmlhint@1 index.html 404.html "docs/*.html"
+
+      - name: Serve the site at its deployed base path
+        run: |
+          python3 tools/serve.py 8765 &
+          for _ in $(seq 1 30); do
+            curl -sf -o /dev/null http://127.0.0.1:8765/noctua/ && break
+            sleep 1
+          done
+
+      - name: The chain diagram works without a mouse
+        run: node tools/check_chain.js
+
+      - name: Screenshots — console, overflow, 4xx and external requests
+        run: node tools/shoot.js
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: screenshots/
+          retention-days: 7

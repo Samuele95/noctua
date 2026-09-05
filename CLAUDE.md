@@ -28,6 +28,8 @@ Two halves. **Standing rules** do not change. **Project state** is rewritten at 
 - `tools/build_docs.py`, `content/page/stages-grid.html`, `dev/` (not written by me): **keep** (2026-09-04).
 
 ### Decisions (mine, worth knowing)
+- **CI checks, but does not deploy** (`.github/workflows/checks.yml`). Pages publishes the branch, so the thing worth guarding is that generated files match their sources: the job re-runs the deterministic generators and fails on `git diff --exit-code`, then runs the dictionaries, links, HTML, diagram and screenshot checks. The brand exports are excluded on purpose — PNG and ICO bytes are not reproducible across librsvg and Chrome versions, so including them would make the check fail for reasons that are not drift.
+- **`sitemap.xml` takes `lastmod` from each page's last commit**, not from the clock. "Today" would rewrite the file on every run — turning the drift check into a daily false alarm — and would also be untrue.
 - **A page that exists but has no route is missing.** All nine docs pages returned 200 from C5 on, and every check passed, because every check asked "does this resolve?" and none asked "can a reader get here?". The fix was an index, a nav entry, a footer link and linked card titles — and the label that said `source:` while pointing at our own page was the tell I should have caught when I repointed those links at C5.
 - **`404.html` and `docs/index.html` are generated**, not hand-written, so the deployed base path is interpolated once from `content/site.json` instead of being search-and-replaced. A first attempt at rewriting the 404 with a regex collapsed every root-absolute path to the base path; generating it removed the class of bug.
 - **Pages deploys from branch `main`, folder `/` — not from a GitHub Actions workflow.** Every generated file is committed, so a workflow would only re-run scripts whose outputs are already in the tree: a moving part that can fail without adding a guarantee. Branch deploy publishes exactly what is in the repo, which is what the traceability argument needs — what you read is what is served. It also matches the brief's reason for choosing Pages: no toolchain to maintain.
@@ -49,7 +51,11 @@ Two halves. **Standing rules** do not change. **Project state** is rewritten at 
 - `sitemap.xml` was not written at C6, though that checkpoint lists it: the protocol needs absolute URLs and the origin arrived at C7. The generator was built and tested against an example origin, and the example output reverted. **Resolved at C7** — the file is written and live.
 
 ### Open questions
-- None blocking. Two offers are in the C7 punch list: a check-only CI workflow, and swapping the landing's hand-written cards for the generated fragment.
+- **The landing's nine cards**: swap the hand-written condensations for the generated
+  `content/page/stages-grid.html`? It would close the last hand-written path from the package to
+  the page, but it replaces copy Delta approved at C3, so it needs Delta's word.
+- `dev/` is still empty and therefore not in the repo; if it was meant to hold something, it is missing.
+- Otherwise none blocking. Two offers are in the C7 punch list: a check-only CI workflow, and swapping the landing's hand-written cards for the generated fragment.
 
 ### Checks log (one line per run: date · checkpoint · check · result)
 - 2026-09-04 · C0 · `json.load(content/chain.json)` · `10 stages, 6 lanes, 7 source kinds, 9 destinations`

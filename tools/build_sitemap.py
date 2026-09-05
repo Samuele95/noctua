@@ -13,6 +13,7 @@ repo is in until Delta supplies the Pages URL (C7). The same run should also sta
 """
 from __future__ import annotations
 
+import subprocess
 import sys
 from datetime import date
 from pathlib import Path
@@ -28,6 +29,21 @@ def pages() -> list[str]:
     return out
 
 
+def lastmod(rel: str) -> str:
+    """The page's last commit date, not today's.
+
+    "Today" would make this file change on every run, which turns a CI drift check into a
+    daily false alarm — and it would also be a lie: the page did not change today. Falls
+    back to today only for a file git does not know about yet.
+    """
+    try:
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", rel],
+                             cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+        return out or date.today().isoformat()
+    except Exception:
+        return date.today().isoformat()
+
+
 def main(argv: list[str]) -> int:
     paths = pages()
     if len(argv) < 2:
@@ -40,7 +56,6 @@ def main(argv: list[str]) -> int:
         return 2
 
     origin = argv[1].rstrip("/") + "/"
-    today = date.today().isoformat()
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
              '        xmlns:xhtml="http://www.w3.org/1999/xhtml">']
@@ -52,7 +67,7 @@ def main(argv: list[str]) -> int:
             lines.append(f'    <xhtml:link rel="alternate" hreflang="{lang}" '
                          f'href="{loc}?lang={lang}"/>')
         lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{loc}"/>')
-        lines.append(f"    <lastmod>{today}</lastmod>")
+        lines.append(f"    <lastmod>{lastmod(p)}</lastmod>")
         lines.append("  </url>")
     lines.append("</urlset>")
     (ROOT / "sitemap.xml").write_text("\n".join(lines) + "\n")

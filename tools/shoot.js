@@ -5,6 +5,10 @@
    brief makes, and a screenshot run is the cheapest place to enforce it. */
 const { chromium } = require("playwright-core");
 const fs = require("fs");
+// the CI runner and this machine keep Chrome in different places
+const CHROME = process.env.CHROME ||
+  ["/usr/bin/google-chrome", "/usr/bin/google-chrome-stable", "/usr/bin/chromium",
+   "/usr/bin/chromium-browser", "/snap/bin/chromium"].find((p) => fs.existsSync(p));
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
@@ -22,7 +26,7 @@ const ALLOWED_HOSTS = [];             // fonts are self-hosted: nothing else may
 
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
-  const browser = await chromium.launch({ executablePath: "/usr/bin/google-chrome" });
+  const browser = await chromium.launch({ executablePath: CHROME });
   const problems = [];
   const external = new Set();
 
