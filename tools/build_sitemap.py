@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 """Write sitemap.xml — and refuse to write a wrong one.
 
+No <lastmod>. The element is optional, and in a sitemap that is generated and then committed
+it cannot be made true: its value would come from the commit that contains the file, so it is
+always one commit stale — and it would make CI's drift check fail on every push that touches a
+page. The project's rule about the origin applies here too: a value you cannot make true is
+worse than no value.
+
 The sitemap protocol requires a fully-qualified URL in every <loc>; a relative path is not
 valid and a guessed origin is worse than no file at all, because a wrong sitemap tells
 crawlers about pages that do not exist. So the origin is required, not defaulted:
@@ -13,9 +19,7 @@ repo is in until Delta supplies the Pages URL (C7). The same run should also sta
 """
 from __future__ import annotations
 
-import subprocess
 import sys
-from datetime import date
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -27,21 +31,6 @@ def pages() -> list[str]:
     out = ["index.html"]
     out += sorted(f"docs/{p.name}" for p in (ROOT / "docs").glob("*.html"))
     return out
-
-
-def lastmod(rel: str) -> str:
-    """The page's last commit date, not today's.
-
-    "Today" would make this file change on every run, which turns a CI drift check into a
-    daily false alarm — and it would also be a lie: the page did not change today. Falls
-    back to today only for a file git does not know about yet.
-    """
-    try:
-        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", rel],
-                             cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
-        return out or date.today().isoformat()
-    except Exception:
-        return date.today().isoformat()
 
 
 def main(argv: list[str]) -> int:
@@ -67,7 +56,6 @@ def main(argv: list[str]) -> int:
             lines.append(f'    <xhtml:link rel="alternate" hreflang="{lang}" '
                          f'href="{loc}?lang={lang}"/>')
         lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{loc}"/>')
-        lines.append(f"    <lastmod>{lastmod(p)}</lastmod>")
         lines.append("  </url>")
     lines.append("</urlset>")
     (ROOT / "sitemap.xml").write_text("\n".join(lines) + "\n")
