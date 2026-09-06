@@ -28,6 +28,8 @@ Two halves. **Standing rules** do not change. **Project state** is rewritten at 
 - `tools/build_docs.py`, `content/page/stages-grid.html`, `dev/` (not written by me): **keep** (2026-09-04).
 
 ### Decisions (mine, worth knowing)
+- **The landing's nine cards are now generated and spliced**, not pasted. `tools/build_docs.py` writes them between `<!-- GENERATED:stages-grid -->` markers in `index.html`, so CI's drift check covers the landing too. Pasting the fragment by hand would have moved the drift risk rather than removing it.
+- **Commits carry the GitHub identity only**: `Samuele95 <94041647+Samuele95@users.noreply.github.com>`, the account's noreply address. History was rewritten because the real name cannot be removed from existing commits any other way; the repo had 0 forks, 0 watchers and one collaborator, so the force-push cost nothing.
 - **CI checks, but does not deploy** (`.github/workflows/checks.yml`). Pages publishes the branch, so the thing worth guarding is that generated files match their sources: the job re-runs the deterministic generators and fails on `git diff --exit-code`, then runs the dictionaries, links, HTML, diagram and screenshot checks. The brand exports are excluded on purpose — PNG and ICO bytes are not reproducible across librsvg and Chrome versions, so including them would make the check fail for reasons that are not drift.
 - **`sitemap.xml` takes `lastmod` from each page's last commit**, not from the clock. "Today" would rewrite the file on every run — turning the drift check into a daily false alarm — and would also be untrue.
 - **A page that exists but has no route is missing.** All nine docs pages returned 200 from C5 on, and every check passed, because every check asked "does this resolve?" and none asked "can a reader get here?". The fix was an index, a nav entry, a footer link and linked card titles — and the label that said `source:` while pointing at our own page was the tell I should have caught when I repointed those links at C5.
@@ -51,9 +53,11 @@ Two halves. **Standing rules** do not change. **Project state** is rewritten at 
 - `sitemap.xml` was not written at C6, though that checkpoint lists it: the protocol needs absolute URLs and the origin arrived at C7. The generator was built and tested against an example origin, and the example output reverted. **Resolved at C7** — the file is written and live.
 
 ### Open questions
-- **The landing's nine cards**: swap the hand-written condensations for the generated
-  `content/page/stages-grid.html`? It would close the last hand-written path from the package to
-  the page, but it replaces copy Delta approved at C3, so it needs Delta's word.
+- **The footer credit still shows the full name.** Delta asked (2026-09-06) that the real name not
+  be shown in the repository's commits; the commits are rewritten, but `foot.credit` in both
+  dictionaries, the `README.md` and `content/outline.md` still read "Samuele \u201cDelta\u201d Stronati",
+  and the footer one is rendered to every visitor. Changing it means changing an authorship credit
+  Delta approved at C3 and C4, so it waits for Delta's word.
 - `dev/` is still empty and therefore not in the repo; if it was meant to hold something, it is missing.
 - Otherwise none blocking. Two offers are in the C7 punch list: a check-only CI workflow, and swapping the landing's hand-written cards for the generated fragment.
 

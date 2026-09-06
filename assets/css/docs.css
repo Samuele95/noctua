@@ -92,6 +92,3 @@
   border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 2px var(--s-2);
   font-size: 10px; color: var(--text-dim);
 }
-.skill h3 a { text-decoration: none; }
-.skill h3 a:hover { color: var(--accent-text); }
-.skill-src a { text-decoration-color: var(--line); }

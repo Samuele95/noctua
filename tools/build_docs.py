@@ -143,13 +143,16 @@ def quoted(text: str) -> str:
 
 # ── the grid fragment (kept from the earlier generator, re-classed) ──────────
 def card(stage: str, command: str, sentence: str, slug: str, external: bool) -> str:
+    st = stages_of(slug)[0] if stages_of(slug) else {}
+    consumes, produces = st.get("consumes", ""), st.get("produces", "")
     pill = '\n            <span class="ext" data-i18n="skill.external">external</span>' if external else ""
     return f"""        <article class="skill">
           <div class="skill-top">
             <h3><a href="docs/{slug}.html" translate="no">{esc(slug)}</a></h3>
             <code class="cmd">{esc(command)}</code>{pill}
           </div>
-          <p lang="en">{esc(sentence)}</p>
+          <p lang="en">{quoted(sentence)}</p>
+          <p class="skill-io" lang="en"><span>{esc(consumes)}</span><span class="io-out"><span class="arrow">&rarr;</span>{esc(produces)}</span></p>
           <p class="skill-src"><a href="docs/{slug}.html" data-i18n="skill.readPage">read the page</a></p>
         </article>"""
 
@@ -448,6 +451,27 @@ def index_page() -> str:
 """
 
 
+START = "<!-- GENERATED:stages-grid start — tools/build_docs.py; do not edit between the markers -->"
+END = "<!-- GENERATED:stages-grid end -->"
+
+
+def splice_landing() -> None:
+    """Put the generated grid into index.html between markers.
+
+    Pasting the fragment by hand would only move the drift risk: the landing would carry
+    package text that nothing re-derives. Splicing it means `build_docs.py` owns those nine
+    cards on the landing exactly as it owns the docs pages, and CI's diff covers them.
+    """
+    page = ROOT / "index.html"
+    html = page.read_text()
+    if START not in html or END not in html:
+        raise SystemExit("FAIL index.html has no GENERATED:stages-grid markers")
+    head, rest = html.split(START, 1)
+    _, tail = rest.split(END, 1)
+    fragment = GRID.read_text().split("-->", 1)[1].strip()
+    page.write_text(f"{head}{START}\n{fragment}\n      {END}{tail}")
+
+
 def main() -> int:
     DOCS.mkdir(exist_ok=True)
     GRID.parent.mkdir(parents=True, exist_ok=True)
@@ -476,6 +500,8 @@ def main() -> int:
         "     Not wired into index.html: those cards are condensations Delta approved at C3.\n"
         "     This fragment carries the landing's class names so it can replace them on request. -->\n"
         '<div class="skill-grid">\n' + "\n".join(cards) + "\n</div>\n")
+
+    splice_landing()
 
     print(f"docs/ written — {pages} pages "
           f"({len(PACKAGED)} from SKILL.md, 1 from the chain map, 1 index); "

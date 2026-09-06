@@ -35,6 +35,9 @@
 .skill:hover { border-color: var(--text-dim); }
 .skill-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--s-2) var(--s-3); }
 .skill h3 { font-size: var(--t-md); }
+.skill h3 a { text-decoration: none; }
+.skill h3 a:hover { color: var(--accent-text); }
+.skill-src a { text-decoration-color: var(--line); }
 .skill .cmd { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--accent-text); }
 .skill .ext {
   font-family: var(--font-mono); font-size: 9px; letter-spacing: .09em; text-transform: uppercase;

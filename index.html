@@ -122,14 +122,15 @@
         </div>
       </div>
 
-      <div class="skill-grid">
+      <!-- GENERATED:stages-grid start — tools/build_docs.py; do not edit between the markers -->
+<div class="skill-grid">
         <article class="skill">
           <div class="skill-top">
             <h3><a href="docs/spec-analysis.html" translate="no">spec-analysis</a></h3>
             <code class="cmd">/spec-analysis</code>
           </div>
-          <p lang="en">Analyze an existing software project, a data project or a database, and explain it back as a read-only HTML report: components and responsibilities, behaviours and business rules, decision logic, the data model and the flows, as connected prose — reading the code but never modifying it.</p>
-          <p class="skill-io" lang="en"><span>codebase / data code / schema</span><span class="io-out"><span class="arrow">&rarr;</span>spec-analysis.html</span></p>
+          <p lang="en">Analyze an EXISTING software project — or a DATA PROJECT (notebooks, ETL, DAGs) or a DATABASE (DDL, migrations, ORM …</p>
+          <p class="skill-io" lang="en"><span>codebase / data code / schema</span><span class="io-out"><span class="arrow">&rarr;</span>spec-analysis.html (prose; no formal model)</span></p>
           <p class="skill-src"><a href="docs/spec-analysis.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
@@ -137,8 +138,8 @@
             <h3><a href="docs/domain-forge.html" translate="no">domain-forge</a></h3>
             <code class="cmd">/domain-forge</code>
           </div>
-          <p lang="en">Turn a textual project idea into a visual, language-agnostic domain model in one self-contained HTML file: entities and relationships extracted from prose, made compatible with ontology T-box/A-box, DMN decision tables and Prolog/Horn rules. It owns the model platform — the contract, the engines, the validator and the layer tools.</p>
-          <p class="skill-io" lang="en"><span>prose, or any model to refine</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.domain.html</span></p>
+          <p lang="en">Turn a textual project idea into a VISUAL, language-agnostic software DOMAIN MODEL rendered as a single self-contained HTML file …</p>
+          <p class="skill-io" lang="en"><span>prose</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.domain.html</span></p>
           <p class="skill-src"><a href="docs/domain-forge.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
@@ -146,8 +147,8 @@
             <h3><a href="docs/dataset-forge.html" translate="no">dataset-forge</a></h3>
             <code class="cmd">/dataset-forge</code>
           </div>
-          <p lang="en">Geometric, neurosymbolic analysis of a tabular dataset: its dimensions, its basis — the minimal set of mutually non-derivable features, every other column expressed as a derivation rule — the dependencies among basis members, and the feature/label partitions they imply, modelled so the engines verify what the model proposes.</p>
-          <p class="skill-io" lang="en"><span>dataset</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.domain.html + geometry</span></p>
+          <p lang="en">Geometric, qualitative, neurosymbolic analysis of a tabular dataset: its effective and intrinsic DIMENSIONS, its BASIS (the minimal set of mutually non-derivable features, every other column expressed as a derivation rule), the residual DEPENDENCIES among basis members, and the FEATURE/LABEL partitions they imply, modeled as a …</p>
+          <p class="skill-io" lang="en"><span>dataset</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.domain.html with geometry layer, memory § Dataset stances</span></p>
           <p class="skill-src"><a href="docs/dataset-forge.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
@@ -155,8 +156,8 @@
             <h3><a href="docs/data-lens.html" translate="no">data-lens</a></h3>
             <code class="cmd">/data-lens</code>
           </div>
-          <p lang="en">Traditional, best-practice analysis on top of that geometry: quality and missingness mechanisms, distributions and outliers, inference with assumption checks and effect sizes, importance and leakage probes, time series, spatial structure, drift. An observation is a finding only if it changes a downstream decision.</p>
-          <p class="skill-io" lang="en"><span>dataset model (+ dataset)</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.analysis.html + analysis</span></p>
+          <p lang="en">Traditional, best-practice data analysis of a tabular dataset on top of its /dataset-forge model: data quality and missingness mechanisms, distributions and outliers, residual relations, statistical inference with assumption checks and effect sizes, segments, feature importance and leakage probes on the chosen partition …</p>
+          <p class="skill-io" lang="en"><span>dataset model (+ dataset)</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.analysis.html with analysis layer; memory § Analysis stances</span></p>
           <p class="skill-src"><a href="docs/data-lens.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
@@ -164,8 +165,8 @@
             <h3><a href="docs/dataset-shaper.html" translate="no">dataset-shaper</a></h3>
             <code class="cmd">/dataset-shaper</code>
           </div>
-          <p lang="en">Materialize decisions the analysis already took: compile a declarative, provenance-traced recipe of transformations, execute it deterministically, verify it, and emit the shaped dataset, a manifest, a lineage, a standalone reproduction script and an additive shape layer.</p>
-          <p class="skill-io" lang="en"><span>model with geometry (+ analysis)</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.shaped.html + shaped/</span></p>
+          <p lang="en">Materialize decisions an analysis already took: from a /dataset-forge model (its <code>geometry</code> layer — typing, basis, cycle orientation, partition and leakage set) and, when present, the /data-lens <code>analysis</code> layer (findings with transformation candidates), compile a declarative, provenance-traced RECIPE of transformations …</p>
+          <p class="skill-io" lang="en"><span>model with geometry (+ analysis)</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.shaped.html with shape layer; shaped/ dataset + recipe.json + manifest.json + lineage.json + reproduce_*.py; memory § Shaping stances</span></p>
           <p class="skill-src"><a href="docs/dataset-shaper.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
@@ -173,7 +174,7 @@
             <h3><a href="docs/inferred-questions.html" translate="no">inferred-questions</a></h3>
             <code class="cmd">/inferred-questions</code>
           </div>
-          <p lang="en">Surface the latent modelling questions in a model — gaps in DMN coverage, edges of OWL restrictions, SWRL antecedents that never bind, multi-typing under disjointness, rationale that names an external system without defining its failure mode. The input file is never modified.</p>
+          <p lang="en">Surface latent modeling questions in a domain-forge HTML model — gaps in DMN coverage, edges of OWL restrictions, SWRL antecedents that never bind, multi-typing under disjointness, rationale that names an external system without defining its failure mode.</p>
           <p class="skill-io" lang="en"><span>any model</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.questions.html</span></p>
           <p class="skill-src"><a href="docs/inferred-questions.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
@@ -182,7 +183,7 @@
             <h3><a href="docs/model-chat.html" translate="no">model-chat</a></h3>
             <code class="cmd">/model-chat</code>
           </div>
-          <p lang="en">Hold an engine-grounded conversation with a model. Every answer is produced by running the model's own engines — SPARQL, the RDFS/SWRL reasoner, Prolog, DMN — never by LLM speculation; when no engine can ground a question, the skill refuses and names the gap.</p>
+          <p lang="en">Hold an engine-grounded conversation with a domain-forge HTML model. Every answer is produced by RUNNING the model's own engines …</p>
           <p class="skill-io" lang="en"><span>any model</span><span class="io-out"><span class="arrow">&rarr;</span>&lt;stem&gt;.chat.html</span></p>
           <p class="skill-src"><a href="docs/model-chat.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
@@ -191,21 +192,22 @@
             <h3><a href="docs/blueprint.html" translate="no">blueprint</a></h3>
             <code class="cmd">/blueprint</code>
           </div>
-          <p lang="en">First-architecture proposal for a greenfield project: ingest a spec-analysis HTML or a model, derive a proposed architectural style and world model plus ranked design findings, every claim traced to the spec or stamped as a designer's choice. With a dataset model it proposes the pipeline the geometry, analysis and recipe imply.</p>
-          <p class="skill-io" lang="en"><span>prose spec or model</span><span class="io-out"><span class="arrow">&rarr;</span>blueprint-runs/&lt;ts&gt;/</span></p>
+          <p lang="en">First-architecture proposal pass for a greenfield project — ingest a spec-analysis HTML or a domain-forge model, derive a proposed architectural style and world model plus ranked design findings, every claim traced to the spec or stamped as a designer's choice.</p>
+          <p class="skill-io" lang="en"><span>prose spec or model (software or dataset)</span><span class="io-out"><span class="arrow">&rarr;</span>blueprint-runs/&lt;ts&gt;/{blueprint.md, findings.json, blueprint.html}</span></p>
           <p class="skill-src"><a href="docs/blueprint.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
         <article class="skill">
           <div class="skill-top">
             <h3><a href="docs/document-project.html" translate="no">document-project</a></h3>
             <code class="cmd">/document-project</code>
-          <span class="ext" data-i18n="skill.external">external</span>
+            <span class="ext" data-i18n="skill.external">external</span>
           </div>
-          <p lang="en">Not part of this package, and described here only by its row in the chain map: it is the last stage of every lane, it consumes everything above it, it produces LaTeX and a PDF chapter by chapter, and the check the orchestrator runs on it is that the PDF compiles.</p>
+          <p lang="en">Consumes everything above and produces LaTeX / PDF, chapter by chapter; the orchestrator's check is that the PDF compiles.</p>
           <p class="skill-io" lang="en"><span>everything above</span><span class="io-out"><span class="arrow">&rarr;</span>LaTeX / PDF</span></p>
           <p class="skill-src"><a href="docs/document-project.html" data-i18n="skill.readPage">read the page</a></p>
         </article>
-      </div>
+</div>
+      <!-- GENERATED:stages-grid end -->
     </div>
   </section>
 
